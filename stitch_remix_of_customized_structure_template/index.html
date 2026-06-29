@@ -1,0 +1,2474 @@
+<!DOCTYPE html>
+<html lang="es" class="light">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Sandoichi POS - Clickable Prototype</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e4e4cc",
+                        "secondary": "#775a00",
+                        "primary-container": "#6a7c32",
+                        "on-error-container": "#93000a",
+                        "outline": "#767869",
+                        "on-secondary-fixed-variant": "#5a4300",
+                        "primary": "#52621c",
+                        "outline-variant": "#c6c8b6",
+                        "on-secondary-container": "#6f5400",
+                        "surface": "#fbfbe2",
+                        "tertiary-fixed": "#ffdcc6",
+                        "secondary-fixed-dim": "#f5bf22",
+                        "on-surface-variant": "#46483b",
+                        "on-surface": "#1b1d0e",
+                        "surface-bright": "#fbfbe2",
+                        "secondary-fixed": "#ffdf98",
+                        "tertiary-fixed-dim": "#eabda0",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#fec72c",
+                        "inverse-on-surface": "#f2f2d9",
+                        "on-tertiary-fixed-variant": "#5f402a",
+                        "on-tertiary-fixed": "#2d1604",
+                        "surface-container-high": "#eaead1",
+                        "background": "#fbfbe2",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#efefd7",
+                        "surface-container-low": "#f5f5dc",
+                        "on-primary-fixed": "#161e00",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#bbcf7c",
+                        "surface-dim": "#dbdcc3",
+                        "tertiary-container": "#926d54",
+                        "primary-fixed": "#d7ec95",
+                        "on-primary-container": "#fbffe4",
+                        "on-background": "#1b1d0e",
+                        "inverse-surface": "#303221",
+                        "on-tertiary-container": "#fffbff",
+                        "on-primary-fixed-variant": "#3d4c05",
+                        "tertiary": "#76553d",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e4e4cc",
+                        "primary-fixed-dim": "#bbcf7c",
+                        "on-secondary-fixed": "#251a00",
+                        "surface-tint": "#54651e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "20px",
+                        "gutter": "16px",
+                        "margin-desktop": "24px",
+                        "margin-mobile": "16px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Work Sans"],
+                        "label-lg": ["Work Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-md-mobile": ["Plus Jakarta Sans"],
+                        "body-md": ["Work Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Work Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "headline-md-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        body {
+            background-color: #fbfbe2; /* surface color */
+            color: #1b1d0e;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c6c8b6;
+            border-radius: 10px;
+        }
+        .order-pattern {
+            background-color: #fbfbe2;
+            background-image: radial-gradient(#76786911 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .order-row:nth-child(even) {
+            background-color: rgba(118, 120, 105, 0.05);
+        }
+        .toggle-checkbox:checked + .toggle-label { background-color: #52621c; }
+        .toggle-checkbox:checked + .toggle-label .toggle-dot { transform: translateX(100%); }
+        .input-no-spinner::-webkit-inner-spin-button, 
+        .input-no-spinner::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        .modal-blur {
+            backdrop-filter: blur(4px);
+            background-color: rgba(27, 29, 14, 0.4);
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface selection:bg-secondary-fixed selection:text-on-secondary-fixed min-h-screen flex flex-col">
+
+    <!-- ------------------ 1. LOGIN VIEW ------------------ -->
+    <div id="view-login" class="flex-grow flex flex-col min-h-screen">
+        <header class="bg-surface dark:bg-surface-dim border-b border-outline-variant/20 top-0 z-50">
+            <nav class="flex justify-between items-center w-full px-margin-desktop py-4">
+                <div class="text-headline-md font-headline-md text-primary dark:text-primary-fixed">Sandoichi</div>
+                <div class="flex gap-4 items-center">
+                    <span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-container-high transition-colors p-2 rounded-full">help</span>
+                    <span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-container-high transition-colors p-2 rounded-full">settings</span>
+                </div>
+            </nav>
+        </header>
+        <main class="flex-grow flex items-center justify-center p-margin-mobile md:p-margin-desktop">
+            <div class="w-full max-w-md bg-surface-container-lowest dark:bg-surface-container shadow-sm border border-outline-variant/20 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-md">
+                <div class="pt-8 pb-4 flex flex-col items-center">
+                    <div class="w-32 h-32 mb-6 rounded-full overflow-hidden bg-surface-container-highest flex items-center justify-center">
+                        <img alt="Sandoichi Mascot" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBXxXMBRzJGTXYdT4Bec8oURGh-re2wjLN8r08dm3X3BHTl28nqU6FKead0n-_GXn_E6-MiESZkx976NTkmKYerOMVYW7pPdFmNLdoeJt88w3Jl9WbQu4lmhl6VM_6Wc4foD5zA4hV3G8grK7GNYzMIduzn4hk4wYXwbJO65sYZ38AoQkJ_jcXRMleopuktDZ1yy1ZdHwQztlg7C7tQNIJS_bwZNrNaEyIhjsYdgFnvcCqCSGfHTPO2n-4N6DBS5AbKQhoPa5J-w">
+                    </div>
+                    <h1 class="font-headline-md text-headline-md text-on-surface">Inicio de Sesión</h1>
+                    <p class="font-label-md text-label-md text-on-surface-variant mt-1">Accede a tu panel de administración</p>
+                </div>
+                <form class="px-8 pb-10 space-y-6" onsubmit="handleLoginSubmit(event)">
+                    <div class="space-y-2">
+                        <label class="font-label-lg text-label-lg text-on-surface-variant" for="username">Usuario</label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">person</span>
+                            <input class="w-full pl-10 pr-4 py-3 bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md text-on-surface placeholder:text-outline/60" id="username" placeholder="Miausculo24" type="text" value="Miausculo24" required>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="font-label-lg text-label-lg text-on-surface-variant" for="password">Contraseña</label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">lock</span>
+                            <input class="w-full pl-10 pr-12 py-3 bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md text-on-surface placeholder:text-outline/60" id="password" placeholder="••••••" type="password" value="123456" required>
+                            <button class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors" type="button" onclick="togglePasswordVisibility()">
+                                <span class="material-symbols-outlined text-[20px]" id="password-toggle-icon">visibility</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <a class="font-label-md text-label-md text-tertiary hover:text-primary transition-colors cursor-pointer">¿Olvidé mi contraseña?</a>
+                    </div>
+                    <button id="login-submit-btn" class="w-full py-4 bg-secondary-container hover:bg-secondary-fixed text-on-secondary-container font-headline-md text-headline-md-mobile rounded-xl shadow-sm hover:shadow-md active:scale-[0.98] transition-all flex items-center justify-center gap-2" type="submit">
+                        <span>Entrar</span>
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+
+    <!-- ------------------ 2. MAIN APP SHELL VIEW (Logged in) ------------------ -->
+    <div id="view-app-shell" class="hidden flex-grow flex flex-col min-h-screen pl-64 pt-16">
+        <!-- Top Navigation Bar -->
+        <header class="flex justify-between items-center px-margin-desktop w-[calc(100%-16rem)] h-16 bg-surface dark:bg-surface-dim border-b border-outline-variant/20 dark:border-outline/20 z-40 fixed top-0 right-0">
+            <div class="flex items-center">
+                <img alt="Sandoichi Logo" class="h-10 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAbbexgpAGrZxnIJ61PeuyETweQpTy_YMMLV7s46d_j1466v29jJmQwy3qlrvT6KpOQGdPn51dpry8Rt5UFFkeXKy_0pf5RWS4zpOQfEwJeSeogc-X4XyW4gaPpHK2Dt14nQv6pWN1oKZunp5Od8gSx3nXjEnsLFLVmKqJWf_biRQom2auIuCjs9uq48V3TlNCJBxbLjkfHlrbiz44OfO7JKJv6FnW1u_qV9XmJLdBJUVmRxYzePmILdvIZ_l2QXu4QPowmZ61mg">
+                <span class="font-headline-md text-headline-md text-primary font-bold uppercase ml-2">Sandoichi</span>
+            </div>
+            <div class="flex-grow flex items-center justify-center gap-8 mx-4">
+                <nav class="hidden md:flex items-center gap-6">
+                    <button id="top-nav-ventas" onclick="switchAppShellScreen('menu')" class="flex items-center gap-2 text-primary font-bold border-b-2 border-primary pb-1 font-label-lg text-label-lg hover:bg-surface-container-high transition-colors duration-200 px-3 py-1.5 rounded-none"><span class="material-symbols-outlined">point_of_sale</span>Ventas</button>
+                    <button id="top-nav-inventario" onclick="switchAppShellScreen('inventory')" class="flex items-center gap-2 text-on-surface-variant font-medium font-label-lg text-label-lg hover:bg-surface-container-high transition-colors duration-200 px-3 py-1.5 rounded-lg"><span class="material-symbols-outlined">inventory_2</span>Inventario</button>
+                    <button id="top-nav-reportes" onclick="switchAppShellScreen('completed')" class="flex items-center gap-2 text-on-surface-variant font-medium font-label-lg text-label-lg hover:bg-surface-container-high transition-colors duration-200 px-3 py-1.5 rounded-lg"><span class="material-symbols-outlined">bar_chart</span>Reportes</button>
+                </nav>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="relative hidden lg:block max-w-xs">
+                    <span class="material-symbols-outlined absolute top-1/2 -translate-y-1/2 text-on-surface-variant left-4">search</span>
+                    <input id="global-search" class="pl-10 pr-4 py-2 bg-surface-container border border-outline-variant rounded-lg text-label-lg focus:ring-2 focus:ring-primary outline-none w-full" placeholder="Buscar por ID..." type="text">
+                </div>
+                <button onclick="triggerReloadSimulation()" class="p-2 text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 rounded-lg active:scale-95 transition-transform" title="Sincronizar">
+                    <span class="material-symbols-outlined">refresh</span>
+                </button>
+                <button onclick="switchAppShellScreen('settings')" class="p-2 text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 rounded-lg active:scale-95 transition-transform" title="Ajustes">
+                    <span class="material-symbols-outlined">settings</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Side Navigation Bar -->
+        <aside class="flex flex-col h-full border-r border-outline-variant/20 w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-container-lowest z-40">
+            <div class="p-6 flex flex-col items-center border-b border-outline-variant/10">
+                <div class="w-16 h-16 rounded-full bg-primary-fixed-dim flex items-center justify-center mb-3 border-2 border-primary/20 overflow-hidden">
+                    <img id="avatar-display" alt="Admin" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAibyWO32N8WVrWOGChyMpM9yOQ6JROeBJ5GN8DuNVG-t2qOXi0rm-FvMm83VB51sU3puIkozm37oteo1IBaYa_CgU6-gvtwWeXONRbHPf59Aj7-eHKyO0h9OL2fiQsHpDFXdiWZN8U31X3oR5mYObEjPIyTvbBBOOMSRI_JlJZnEbVMkAekvxSsaXnobzKIghMVzjIxmNejFOtdnvHy0TMilIaCWJujdnKrhjbLQDGt6lYx_y3dK-3Z0AZadX_Zq4kcE7nzrcA8g">
+                </div>
+                <h3 id="username-display" class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary">Miausculo24</h3>
+                <p class="font-label-md text-label-md text-on-surface-variant">Sucursal Central</p>
+            </div>
+            <nav class="flex-grow py-4 overflow-y-auto custom-scrollbar px-3 space-y-1">
+                <button onclick="switchAppShellScreen('menu')" class="sidebar-btn flex w-full items-center gap-4 px-4 py-3 bg-secondary-container text-on-secondary-container font-bold rounded-lg hover:bg-secondary-fixed transition-all" id="side-btn-menu">
+                    <span class="material-symbols-outlined">add_shopping_cart</span>
+                    <span class="font-label-md text-label-md text-left flex-grow">Nueva Orden</span>
+                </button>
+                <button onclick="switchAppShellScreen('pending')" class="sidebar-btn flex w-full items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 rounded-lg transition-all" id="side-btn-pending">
+                    <span class="material-symbols-outlined">pending_actions</span>
+                    <span class="font-label-md text-label-md text-left flex-grow">Pendientes</span>
+                    <span id="badge-pending-count" class="bg-primary text-on-primary text-[10px] font-bold px-2 py-0.5 rounded-full">0</span>
+                </button>
+                <button onclick="switchAppShellScreen('completed')" class="sidebar-btn flex w-full items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 rounded-lg transition-all" id="side-btn-completed">
+                    <span class="material-symbols-outlined">check_circle</span>
+                    <span class="font-label-md text-label-md text-left flex-grow">Completados</span>
+                </button>
+                <button onclick="openCorteCajaModal()" class="sidebar-btn flex w-full items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 rounded-lg transition-all" id="side-btn-caja">
+                    <span class="material-symbols-outlined">payments</span>
+                    <span class="font-label-md text-label-md text-left flex-grow">Caja (Corte)</span>
+                </button>
+                <button onclick="showToast('Sandoichi POS Ayuda: Para usar el sistema, agregue productos desde la Nueva Orden o consulte Pendientes.', 'info')" class="sidebar-btn flex w-full items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 rounded-lg transition-all" id="side-btn-help">
+                    <span class="material-symbols-outlined">help</span>
+                    <span class="font-label-md text-label-md text-left flex-grow">Ayuda</span>
+                </button>
+            </nav>
+            <div class="mt-auto mb-2 px-3 border-t border-outline-variant/10 pt-2">
+                <button onclick="openLogoutModal()" class="flex w-full items-center gap-4 px-4 py-3 text-error hover:bg-error-container/20 active:bg-error-container/40 transition-all font-label-md text-label-md rounded-lg mb-2">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span class="font-label-md font-bold text-left">Cerrar Sesión</span>
+                </button>
+                <div class="p-4 bg-surface-container-high/50 border border-outline-variant/10 rounded-lg">
+                    <div class="flex items-center justify-between text-label-md text-on-surface-variant">
+                        <span>Estado del Sistema</span>
+                        <span class="w-2 h-2 rounded-full bg-green-600 animate-pulse"></span>
+                    </div>
+                    <p class="text-[10px] text-on-surface-variant/60 uppercase tracking-widest text-center mt-2">v2.4.0 Online</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ------------------ app shell dynamically toggled panels ------------------ -->
+        <main class="flex-1 p-margin-desktop h-[calc(100vh-64px)] overflow-y-auto custom-scrollbar">
+            <div class="max-w-6xl mx-auto space-y-8">
+                
+                <!-- SCREEN 2.1: MENU PRINCIPAL PANEL -->
+                <div id="screen-menu" class="app-screen space-y-8 hidden">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div>
+                            <h1 class="font-headline-lg text-headline-lg text-primary">¡Bienvenido de nuevo, <span class="profile-name-text">Miausculo</span>!</h1>
+                            <p id="live-time-menu" class="font-body-md text-body-md text-on-surface-variant">Cargando fecha y hora...</p>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-surface-container p-4 border border-outline-variant/30 rounded-lg flex items-center gap-4 min-w-[200px]">
+                                <div class="w-10 h-10 rounded-lg bg-primary-container/20 flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-primary-container">trending_up</span>
+                                </div>
+                                <div>
+                                    <p class="font-label-md text-label-md text-on-surface-variant">Ventas de hoy</p>
+                                    <p id="stats-menu-sales" class="font-headline-md text-headline-md text-on-surface">$0.00</p>
+                                </div>
+                            </div>
+                            <div class="bg-surface-container p-4 border border-outline-variant/30 rounded-lg flex items-center gap-4 min-w-[200px]">
+                                <div class="w-10 h-10 rounded-lg bg-secondary-container/20 flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-secondary">pending</span>
+                                </div>
+                                <div>
+                                    <p class="font-label-md text-label-md text-on-surface-variant">Pedidos pendientes</p>
+                                    <p id="stats-menu-pending" class="font-headline-md text-headline-md text-on-surface">0</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative rounded-xl overflow-hidden flex flex-col items-center p-6 bg-surface-container-low border border-outline-variant/20">
+                        <div class="w-full max-w-4xl space-y-6">
+                            <div class="relative">
+                                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                                <input id="menu-search-input" oninput="filterMenuProducts()" class="w-full pl-12 pr-4 py-4 bg-surface border-2 border-outline-variant rounded-xl font-body-lg focus:ring-2 focus:ring-primary outline-none transition-all" placeholder="Buscar productos para generar orden..." type="text">
+                            </div>
+                            <!-- Scrollable Menu Product List with checkboxes -->
+                            <div id="menu-product-list" class="space-y-2 max-h-[350px] overflow-y-auto custom-scrollbar pr-2">
+                                <!-- Generated Dynamically -->
+                            </div>
+                            <div class="flex justify-between items-center pt-4 border-t border-outline-variant/10">
+                                <span class="text-label-lg text-on-surface-variant" id="checked-menu-items-count">0 productos seleccionados</span>
+                                <button onclick="generatePOSOrderFromMenu()" class="bg-primary text-surface px-8 py-3 rounded-full font-headline-md hover:bg-primary/90 transition-all active:scale-95 shadow-lg flex items-center gap-2">
+                                    <span class="material-symbols-outlined">add_shopping_cart</span>
+                                    GENERAR PEDIDO
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SCREEN 3.0: INVENTARIO PANEL -->
+                <div id="screen-inventory" class="app-screen space-y-8 hidden">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div>
+                            <h1 class="font-headline-lg text-headline-lg text-on-surface">Inventario de Insumos</h1>
+                            <p class="font-body-md text-body-md text-on-surface-variant">Gestiona tus productos y niveles de stock</p>
+                        </div>
+                        <button onclick="showAddProductScreen()" class="bg-primary text-on-primary px-6 py-3 font-label-lg text-label-lg flex items-center gap-2 hover:bg-primary-container transition-transform active:scale-95 shadow-sm rounded-lg">
+                            <span class="material-symbols-outlined">add</span>
+                            Agregar Nuevo Producto
+                        </button>
+                    </div>
+
+                    <!-- Dashboard Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+                        <div class="bg-surface-container p-6 border border-outline-variant/20 rounded-lg shadow-sm">
+                            <p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">Total Productos</p>
+                            <p id="inv-total-products" class="text-headline-lg font-headline-lg text-primary mt-1">0</p>
+                        </div>
+                        <div class="bg-error-container p-6 border border-error/20 rounded-lg shadow-sm">
+                            <p class="text-on-error-container font-label-md text-label-md uppercase tracking-wider">Stock Bajo</p>
+                            <div class="flex items-baseline gap-2">
+                                <p id="inv-low-stock" class="text-headline-lg font-headline-lg text-error mt-1">0</p>
+                                <span class="text-error font-bold text-label-md">¡Atención!</span>
+                            </div>
+                        </div>
+                        <div class="bg-secondary-container p-6 border border-outline-variant/20 rounded-lg shadow-sm">
+                            <p class="text-on-secondary-container font-label-md text-label-md uppercase tracking-wider">Categorías</p>
+                            <p id="inv-categories" class="text-headline-lg font-headline-lg text-secondary mt-1">0</p>
+                        </div>
+                        <div class="bg-surface-container-high p-6 border border-outline-variant/20 rounded-lg shadow-sm">
+                            <p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">Valor Inventario</p>
+                            <p id="inv-total-value" class="text-headline-lg font-headline-lg text-on-surface mt-1">$0.00</p>
+                        </div>
+                    </div>
+
+                    <!-- Search and table -->
+                    <div class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl overflow-hidden shadow-sm">
+                        <div class="p-4 border-b border-outline-variant/20 flex flex-col sm:flex-row gap-4 justify-between items-center bg-surface-container-low/30">
+                            <div class="relative w-full sm:w-80">
+                                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+                                <input id="inventory-search" oninput="renderInventoryTable()" class="w-full bg-surface border border-outline-variant rounded-lg pl-10 pr-4 py-2 text-label-md focus:ring-2 focus:ring-primary outline-none" placeholder="Buscar por nombre o SKU..." type="text">
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="triggerPDFDownload()" class="px-4 py-2 border border-outline rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors">PDF</button>
+                                <button onclick="showToast('Sugerencia de orden de compra generada exitosamente.', 'success')" class="px-4 py-2 bg-secondary text-on-secondary rounded-lg font-label-md text-label-md hover:opacity-90">Sugerir Compra</button>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse">
+                                <thead>
+                                    <tr class="bg-surface-container border-b border-outline-variant/30 text-left">
+                                        <th class="px-6 py-4 font-label-lg text-label-lg text-on-surface-variant">#</th>
+                                        <th class="px-6 py-4 font-label-lg text-label-lg text-on-surface-variant">Nombre de Producto</th>
+                                        <th class="px-6 py-4 font-label-lg text-label-lg text-on-surface-variant">Categoría</th>
+                                        <th class="px-6 py-4 font-label-lg text-label-lg text-on-surface-variant">Existencias</th>
+                                        <th class="px-6 py-4 font-label-lg text-label-lg text-on-surface-variant text-right">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="inventory-tbody" class="divide-y divide-outline-variant/10">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SCREEN 3.1: AGREGAR PRODUCTO PANEL -->
+                <div id="screen-add-product" class="app-screen space-y-8 hidden">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="font-headline-lg text-headline-lg text-on-background">Agregar Nuevo Producto</h1>
+                            <p class="text-body-md font-body-md text-on-surface-variant">Complete los detalles para registrar un nuevo artículo en su inventario.</p>
+                        </div>
+                    </div>
+                    <form onsubmit="handleNewProductSubmit(event)" class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+                        <!-- Left Side Inputs -->
+                        <div class="lg:col-span-8 space-y-gutter">
+                            <div class="bg-surface-container-lowest border border-outline-variant/30 p-6 rounded-xl shadow-sm space-y-6">
+                                <h3 class="font-headline-md text-headline-md text-primary">Información General</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="md:col-span-2">
+                                        <label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="p-name">Nombre del Producto *</label>
+                                        <input class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 text-body-md font-body-md focus:ring-2 focus:ring-primary outline-none" id="p-name" placeholder="Ej. Sándwich Katsu Premium" type="text" required>
+                                    </div>
+                                    <div>
+                                        <label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="p-category">Categoría *</label>
+                                        <select class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 text-body-md font-body-md focus:ring-2 focus:ring-primary outline-none" id="p-category" required>
+                                            <option value="">Seleccionar categoría</option>
+                                            <option value="Sándwiches">Sándwiches</option>
+                                            <option value="Bebidas">Bebidas</option>
+                                            <option value="Postres">Postres</option>
+                                            <option value="Snacks">Snacks</option>
+                                            <option value="Panadería">Panadería</option>
+                                            <option value="Cárnicos">Cárnicos</option>
+                                            <option value="Lácteos">Lácteos</option>
+                                            <option value="Vegetales">Vegetales</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="p-sku">Código de Producto (SKU) *</label>
+                                        <input class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 text-body-md font-body-md focus:ring-2 focus:ring-primary outline-none" id="p-sku" placeholder="SKU-0001" type="text" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-surface-container-lowest border border-outline-variant/30 p-6 rounded-xl shadow-sm space-y-6">
+                                <h3 class="font-headline-md text-headline-md text-primary">Precios e Inventario</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div>
+                                        <label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="p-price">Precio de Venta ($) *</label>
+                                        <input oninput="updateMarginGain()" class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 text-body-md font-body-md focus:ring-2 focus:ring-primary outline-none" id="p-price" placeholder="0.00" type="number" step="0.01" required>
+                                    </div>
+                                    <div>
+                                        <label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="p-cost">Costo de Insumos ($)</label>
+                                        <input oninput="updateMarginGain()" class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 text-body-md font-body-md focus:ring-2 focus:ring-primary outline-none" id="p-cost" placeholder="0.00" type="number" step="0.01">
+                                    </div>
+                                    <div>
+                                        <label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="p-stock">Stock Inicial *</label>
+                                        <input class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 text-body-md font-body-md focus:ring-2 focus:ring-primary outline-none" id="p-stock" placeholder="0" type="number" step="0.1" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-surface-container-lowest border border-outline-variant/30 p-6 rounded-xl shadow-sm space-y-6">
+                                <h3 class="font-headline-md text-headline-md text-primary">Descripción</h3>
+                                <textarea class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 text-body-md font-body-md focus:ring-2 focus:ring-primary outline-none resize-none" id="p-description" placeholder="Escriba los ingredientes y detalles del producto..." rows="4"></textarea>
+                            </div>
+                        </div>
+                        <!-- Right Side Summary & Actions -->
+                        <div class="lg:col-span-4 space-y-gutter">
+                            <div class="bg-surface-container-high border border-outline-variant/30 p-6 rounded-xl shadow-sm">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-label-lg font-label-lg text-on-surface-variant uppercase tracking-widest">Resumen Financiero</span>
+                                    <span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-label-md font-label-md rounded">BORRADOR</span>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center text-body-md font-body-md">
+                                        <span class="text-on-surface-variant">Margen de Ganancia:</span>
+                                        <span id="p-margin-display" class="text-primary font-bold">-- %</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-body-md font-body-md">
+                                        <span class="text-on-surface-variant">Impuesto (IVA 16%):</span>
+                                        <span id="p-iva-display" class="text-on-surface font-medium">$0.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-surface-container-lowest border border-outline-variant/30 p-6 rounded-xl shadow-sm flex flex-col gap-3">
+                                <button type="submit" class="w-full h-14 bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container transition-all active:scale-95 uppercase tracking-wider shadow-md rounded-lg">
+                                    Guardar Producto
+                                </button>
+                                <button type="button" onclick="switchAppShellScreen('inventory')" class="w-full h-14 border border-tertiary text-tertiary font-label-lg text-label-lg hover:bg-surface-container-high transition-colors uppercase tracking-wider rounded-lg">
+                                    Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- SCREEN 5.0: ORDENES PENDIENTES PANEL -->
+                <div id="screen-pending" class="app-screen space-y-8 hidden">
+                    <div>
+                        <h1 class="font-headline-lg text-headline-lg text-on-surface">Órdenes Pendientes</h1>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Gestiona las comandas actuales y procesa los pagos.</p>
+                    </div>
+
+                    <!-- Orders Grid -->
+                    <div id="pending-orders-grid" class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-gutter">
+                        <!-- Dynamic Order Cards -->
+                    </div>
+                </div>
+
+                <!-- SCREEN 6.0: ORDENES COMPLETADAS (History) PANEL -->
+                <div id="screen-completed" class="app-screen space-y-8 hidden">
+                    <div>
+                        <h1 class="font-headline-md text-headline-md font-bold text-primary">Historial de Ventas</h1>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Visualiza el historial completo de ventas realizadas en esta caja.</p>
+                    </div>
+
+                    <div class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl overflow-hidden shadow-sm">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="bg-surface-container-high">
+                                <tr>
+                                    <th class="px-6 py-4 font-label-lg text-label-lg text-on-surface-variant">ID de Transacción</th>
+                                    <th class="px-6 py-4 font-label-lg text-label-lg text-on-surface-variant">Hora</th>
+                                    <th class="px-6 py-4 font-label-lg text-label-lg text-on-surface-variant">Cliente</th>
+                                    <th class="px-6 py-4 font-label-lg text-label-lg text-on-surface-variant text-right">Total (con IVA)</th>
+                                    <th class="px-6 py-4 font-label-lg text-label-lg text-on-surface-variant text-center">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="completed-transactions-tbody" class="divide-y divide-outline-variant/10">
+                                <!-- Dynamic Rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- SCREEN 9.0: AJUSTES DEL SISTEMA PANEL -->
+                <div id="screen-settings" class="app-screen space-y-8 hidden">
+                    <div>
+                        <h1 class="font-headline-md text-headline-md font-bold text-primary">Ajustes del Sistema</h1>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Controla tu perfil, métodos de pago y personal.</p>
+                    </div>
+
+                    <div class="space-y-8">
+                        <!-- User Profile Settings -->
+                        <section class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                            <div class="md:col-span-4">
+                                <h3 class="font-headline-md text-headline-md text-on-surface">Perfil de Usuario</h3>
+                                <p class="font-body-md text-body-md text-on-surface-variant mt-2">Gestiona tu información personal y rol dentro del sistema POS.</p>
+                            </div>
+                            <div class="md:col-span-8 bg-surface-container-lowest p-8 border border-outline-variant/20 shadow-sm rounded-xl space-y-6">
+                                <div class="flex items-center gap-6">
+                                    <div class="h-24 w-24 bg-surface-container rounded-lg border border-outline-variant/20 flex items-center justify-center relative overflow-hidden">
+                                        <img id="settings-avatar-img" alt="Usuario" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAibyWO32N8WVrWOGChyMpM9yOQ6JROeBJ5GN8DuNVG-t2qOXi0rm-FvMm83VB51sU3puIkozm37oteo1IBaYa_CgU6-gvtwWeXONRbHPf59Aj7-eHKyO0h9OL2fiQsHpDFXdiWZN8U31X3oR5mYObEjPIyTvbBBOOMSRI_JlJZnEbVMkAekvxSsaXnobzKIghMVzjIxmNejFOtdnvHy0TMilIaCWJujdnKrhjbLQDGt6lYx_y3dK-3Z0AZadX_Zq4kcE7nzrcA8g">
+                                    </div>
+                                    <div>
+                                        <h4 class="font-headline-md text-headline-md text-on-surface profile-name-text">Miausculo24</h4>
+                                        <span class="inline-block px-3 py-1 bg-primary text-on-primary text-label-md font-label-md mt-1 rounded">Super Administrador</span>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="flex flex-col gap-2">
+                                        <label class="font-label-md text-label-md text-on-surface-variant" for="set-fullname">Nombre de Usuario</label>
+                                        <input id="set-fullname" class="bg-surface border border-outline-variant/50 focus:ring-2 focus:ring-primary outline-none p-3 rounded-lg font-body-md text-on-surface" type="text" value="Miausculo24">
+                                    </div>
+                                    <div class="flex flex-col gap-2">
+                                        <label class="font-label-md text-label-md text-on-surface-variant" for="set-email">Correo Electrónico</label>
+                                        <input id="set-email" class="bg-surface border border-outline-variant/50 focus:ring-2 focus:ring-primary outline-none p-3 rounded-lg font-body-md text-on-surface" type="email" value="admin@sandoichi.com">
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <hr class="border-outline-variant/20">
+
+                        <!-- Terminal Configuration -->
+                        <section class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                            <div class="md:col-span-4">
+                                <h3 class="font-headline-md text-headline-md text-on-surface">Configuración de Terminal</h3>
+                                <p class="font-body-md text-body-md text-on-surface-variant mt-2">Ajustes específicos de la tienda y el identificador de la caja actual.</p>
+                            </div>
+                            <div class="md:col-span-8 bg-surface-container-lowest p-8 border border-outline-variant/20 shadow-sm rounded-xl space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="flex flex-col gap-2">
+                                        <label class="font-label-md text-label-md text-on-surface-variant" for="set-branch">Nombre de la Sucursal</label>
+                                        <input id="set-branch" class="bg-surface border border-outline-variant/50 focus:ring-2 focus:ring-primary outline-none p-3 rounded-lg font-body-md text-on-surface" type="text" value="Sandoichi - Sede Central">
+                                    </div>
+                                    <div class="flex flex-col gap-2">
+                                        <label class="font-label-md text-label-md text-on-surface-variant">Terminal ID</label>
+                                        <input class="bg-surface-container border border-outline-variant/50 p-3 rounded-lg font-body-md text-on-surface-variant cursor-not-allowed" readonly="" type="text" value="TERM-001">
+                                    </div>
+                                    <div class="flex flex-col gap-2">
+                                        <label class="font-label-md text-label-md text-on-surface-variant" for="set-language">Idioma del Sistema</label>
+                                        <select id="set-language" class="bg-surface border border-outline-variant/50 p-3 rounded-lg font-body-md text-on-surface">
+                                            <option selected>Español (Latinoamérica)</option>
+                                            <option>English (US)</option>
+                                            <option>日本語 (Japonés)</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex flex-col gap-2">
+                                        <label class="font-label-md text-label-md text-on-surface-variant" for="set-timezone">Zona Horaria</label>
+                                        <select id="set-timezone" class="bg-surface border border-outline-variant/50 p-3 rounded-lg font-body-md text-on-surface">
+                                            <option selected>(GMT-06:00) Central America</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <hr class="border-outline-variant/20">
+
+                        <!-- Payment Methods Configuration -->
+                        <section class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                            <div class="md:col-span-4">
+                                <h3 class="font-headline-md text-headline-md text-on-surface">Métodos de Pago</h3>
+                                <p class="font-body-md text-body-md text-on-surface-variant mt-2">Habilita o deshabilita los tipos de pago aceptados en esta terminal.</p>
+                            </div>
+                            <div class="md:col-span-8 bg-surface-container-lowest border border-outline-variant/20 rounded-xl shadow-sm overflow-hidden divide-y divide-outline-variant/20">
+                                <!-- Cash -->
+                                <div class="flex items-center justify-between p-6">
+                                    <div class="flex items-center gap-4">
+                                        <div class="h-12 w-12 bg-surface-container flex items-center justify-center rounded-lg">
+                                            <span class="material-symbols-outlined text-primary">payments</span>
+                                        </div>
+                                        <div>
+                                            <p class="font-label-lg text-label-lg text-on-surface">Efectivo</p>
+                                            <p class="font-body-md text-body-md text-on-surface-variant">Acepta billetes y monedas locales.</p>
+                                        </div>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input id="pay-method-cash" checked class="sr-only toggle-checkbox" type="checkbox" onchange="togglePaymentMethod('cash')">
+                                        <div class="toggle-label w-11 h-6 rounded-full transition-colors relative bg-outline-variant/50">
+                                            <div class="toggle-dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <!-- Card -->
+                                <div class="flex items-center justify-between p-6">
+                                    <div class="flex items-center gap-4">
+                                        <div class="h-12 w-12 bg-surface-container flex items-center justify-center rounded-lg">
+                                            <span class="material-symbols-outlined text-primary">credit_card</span>
+                                        </div>
+                                        <div>
+                                            <p class="font-label-lg text-label-lg text-on-surface">Tarjeta de Débito/Crédito</p>
+                                            <p class="font-body-md text-body-md text-on-surface-variant">Integración con terminal bancaria.</p>
+                                        </div>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input id="pay-method-card" checked class="sr-only toggle-checkbox" type="checkbox" onchange="togglePaymentMethod('card')">
+                                        <div class="toggle-label w-11 h-6 rounded-full transition-colors relative bg-outline-variant/50">
+                                            <div class="toggle-dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <!-- QR -->
+                                <div class="flex items-center justify-between p-6">
+                                    <div class="flex items-center gap-4">
+                                        <div class="h-12 w-12 bg-surface-container flex items-center justify-center rounded-lg">
+                                            <span class="material-symbols-outlined text-primary">qr_code_2</span>
+                                        </div>
+                                        <div>
+                                            <p class="font-label-lg text-label-lg text-on-surface">Billeteras Digitales (QR)</p>
+                                            <p class="font-body-md text-body-md text-on-surface-variant">Pagos vía transferencia y códigos QR.</p>
+                                        </div>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input id="pay-method-qr" class="sr-only toggle-checkbox" type="checkbox" onchange="togglePaymentMethod('qr')">
+                                        <div class="toggle-label w-11 h-6 rounded-full transition-colors relative bg-outline-variant/50">
+                                            <div class="toggle-dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </section>
+
+                        <hr class="border-outline-variant/20">
+
+                        <!-- Staff Management -->
+                        <section class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                            <div class="md:col-span-4">
+                                <h3 class="font-headline-md text-headline-md text-on-surface">Seguridad y Personal</h3>
+                                <p class="font-body-md text-body-md text-on-surface-variant mt-2">Controla quién tiene acceso al sistema y sus niveles de permiso.</p>
+                            </div>
+                            <div class="md:col-span-8 bg-surface-container-lowest border border-outline-variant/20 shadow-sm rounded-xl overflow-hidden flex flex-col">
+                                <div class="p-6 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-low/30">
+                                    <h4 class="font-label-lg text-label-lg text-on-surface">Lista de Personal Activo</h4>
+                                    <button onclick="showAddStaffPrompt()" class="bg-secondary text-on-secondary px-4 py-2 text-label-md font-label-md hover:opacity-90 rounded">AGREGAR MIEMBRO</button>
+                                </div>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-left">
+                                        <thead class="bg-surface-container-low text-on-surface-variant font-label-md text-label-md border-b border-outline-variant/20">
+                                            <tr>
+                                                <th class="px-6 py-3 font-semibold">Usuario</th>
+                                                <th class="px-6 py-3 font-semibold">Rol</th>
+                                                <th class="px-6 py-3 font-semibold">Estado</th>
+                                                <th class="px-6 py-3 font-semibold text-right">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="settings-staff-tbody" class="divide-y divide-outline-variant/10 font-body-md text-body-md">
+                                            <!-- Dynamic Staff Rows -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div class="flex justify-end gap-4 mt-8 pb-12">
+                            <button onclick="switchAppShellScreen('menu')" class="px-8 py-3 bg-transparent border border-tertiary text-tertiary font-label-lg text-label-lg hover:bg-tertiary/5 rounded-lg">
+                                DESCARTAR CAMBIOS
+                            </button>
+                            <button onclick="saveGlobalSettings()" class="px-10 py-3 bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container shadow-lg rounded-lg">
+                                GUARDAR CONFIGURACIÓN
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+
+    <!-- ------------------ 3. POINT OF SALE (POS) SHELL VIEW ------------------ -->
+    <div id="view-pos-shell" class="hidden flex-grow flex flex-col min-h-screen">
+        <!-- TopAppBar -->
+        <header class="bg-surface-bright text-primary flex justify-between items-center w-full px-margin-desktop py-3 border-b border-outline-variant/30 h-20 shrink-0 shadow-sm z-20">
+            <div class="flex items-center gap-4">
+                <img alt="Sandoichi Logo" class="h-14 w-14 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfUthhBX04I7OfbuVuUTncPlpz2jwMUF9s5hbePGjhXiL4qudy9Nh65UiL0GNyAHOpLGcWRau3RaCMFsiQ1yaKlsoaQ1vhqH0L3iT9xzB4qciI1Ver455WO8s6c1GLOgAfVQ4nyWrJndJxfMpqMrlIiJxxu-S9PSyu6ZgsA-ILmqAbhqGqgVo0uhLkSD-I11ZUo1NCz9lph4tdLpttMIQTLqlymvaYIichyIhreh63QJANm-ln0G_S5O80EcYV7KD0hdhHjdsgBQ">
+                <h1 class="font-headline-lg text-2xl font-bold tracking-tight text-primary">SANDOICHI</h1>
+            </div>
+            <div class="hidden lg:flex items-center gap-1 ml-4 h-full">
+                <button onclick="switchPOSScreen('pos')" id="pos-header-tab-pos" class="flex items-center gap-2 px-6 py-4 rounded-t-xl hover:bg-surface-container-high transition-all border-b-4 border-primary text-primary font-bold"><span class="material-symbols-outlined text-primary">point_of_sale</span><span class="font-label-lg text-sm uppercase tracking-wider">Ventas</span></button>
+                <button onclick="exitPOSToAppShell('inventory')" class="flex items-center gap-2 px-6 py-4 rounded-t-xl hover:bg-surface-container-high transition-all text-on-surface-variant font-medium"><span class="material-symbols-outlined text-primary">inventory_2</span><span class="font-label-lg text-sm uppercase tracking-wider">Inventario</span></button>
+                <button onclick="exitPOSToAppShell('completed')" class="flex items-center gap-2 px-6 py-4 rounded-t-xl hover:bg-surface-container-high transition-all text-on-surface-variant font-medium"><span class="material-symbols-outlined text-primary">bar_chart</span><span class="font-label-lg text-sm uppercase tracking-wider">Reportes</span></button>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="relative w-full max-w-xs">
+                    <span class="material-symbols-outlined absolute top-1/2 -translate-y-1/2 text-outline text-lg left-3">search</span>
+                    <input id="pos-product-search" oninput="filterPOSSearchProduct()" class="w-full bg-surface-container-low border border-outline/30 pl-10 pr-4 py-2.5 font-label-md text-sm rounded-xl focus:ring-2 focus:ring-primary/10 focus:border-primary outline-none transition-all" placeholder="Agregar producto por nombre..." type="text">
+                    <!-- autocomplete results dropdown -->
+                    <div id="pos-search-results" class="hidden absolute left-0 right-0 top-12 bg-surface border border-outline-variant rounded-xl shadow-xl z-50 max-h-64 overflow-y-auto custom-scrollbar">
+                        <!-- results -->
+                    </div>
+                </div>
+                <button onclick="exitPOSToAppShell('pending')" class="p-2.5 hover:bg-surface-container-high transition-all rounded-full text-on-surface-variant" title="Órdenes Pendientes">
+                    <span class="material-symbols-outlined">history</span>
+                </button>
+                <button onclick="exitPOSToAppShell('settings')" class="p-2.5 hover:bg-surface-container-high transition-all rounded-full text-on-surface-variant" title="Configuración">
+                    <span class="material-symbols-outlined">settings</span>
+                </button>
+                <div class="h-8 w-px bg-outline-variant/40 mx-2"></div>
+                <div onclick="exitPOSToAppShell('menu')" class="flex items-center gap-2 px-3 py-1.5 bg-surface-container rounded-full hover:bg-surface-container-high cursor-pointer transition-colors" title="Regresar al panel de control">
+                    <span class="material-symbols-outlined text-sm">home</span>
+                    <span class="text-xs font-bold text-on-surface-variant">Regresar</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dynamic POS View Content -->
+        <div id="pos-shell-content" class="flex-grow flex flex-col overflow-hidden">
+            
+            <!-- PANEL 3.1: PUNTO DE VENTA CAR CART -->
+            <div id="screen-pos" class="pos-screen flex-grow flex flex-col h-full overflow-hidden p-6 gap-6">
+                <!-- Order Content Area -->
+                <div class="flex-grow grid grid-cols-12 gap-6 overflow-hidden min-h-[300px]">
+                    <!-- Main Table Section (Center-Left Focus) -->
+                    <section class="col-span-12 lg:col-span-9 flex flex-col overflow-hidden rounded-xl shadow-sm bg-surface-container-lowest border border-outline-variant/20">
+                        <div class="flex-grow overflow-auto custom-scrollbar">
+                            <table class="w-full text-left border-collapse">
+                                <thead class="sticky top-0 bg-surface-container-high/95 backdrop-blur-sm z-10">
+                                    <tr class="border-b border-outline-variant/30">
+                                        <th class="px-8 py-5 font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest">Descripción</th>
+                                        <th class="px-8 py-5 font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest">Precio Unitario</th>
+                                        <th class="px-8 py-5 font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest">Cant.</th>
+                                        <th class="px-8 py-5 font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest text-right">Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pos-cart-tbody" class="divide-y divide-outline-variant/10">
+                                    <!-- Dynamic Cart Rows -->
+                                </tbody>
+                            </table>
+                            <div id="pos-empty-cart-view" class="hidden flex flex-col items-center justify-center p-12 text-center text-on-surface-variant opacity-60">
+                                <span class="material-symbols-outlined text-6xl mb-3">add_shopping_cart</span>
+                                <h3 class="font-headline-md">Su carrito está vacío</h3>
+                                <p class="text-body-md mt-1">Busque y agregue productos en la barra superior o regrese al panel.</p>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Status/Summary Sidebar -->
+                    <aside class="col-span-12 lg:col-span-3 flex flex-col gap-6">
+                        <div class="bg-surface-container-high rounded-xl p-6 flex-grow flex flex-col border border-outline-variant/20 justify-between">
+                            <div class="space-y-4">
+                                <h3 class="font-label-lg text-xs text-on-surface-variant uppercase tracking-[0.2em] mb-4 opacity-70 border-b border-outline-variant/20 pb-2">Estado de la Orden</h3>
+                                <div class="flex justify-between items-center py-2 border-b border-outline-variant/20">
+                                    <span class="text-on-surface-variant font-label-md uppercase tracking-wider">Tipo Orden</span>
+                                    <select id="pos-order-type" onchange="state.posOrderType = this.value" class="font-bold bg-transparent border-none p-0 focus:ring-0 text-right text-primary hover:underline cursor-pointer">
+                                        <option value="Para llevar" selected>Para llevar</option>
+                                        <option value="Mesa 01">Mesa 01</option>
+                                        <option value="Mesa 02">Mesa 02</option>
+                                        <option value="Mesa 03">Mesa 03</option>
+                                        <option value="Mesa 04">Mesa 04</option>
+                                        <option value="Mesa 05">Mesa 05</option>
+                                        <option value="Mesa 12">Mesa 12</option>
+                                    </select>
+                                </div>
+                                <div class="flex justify-between items-center py-2 border-b border-outline-variant/20">
+                                    <span class="text-on-surface-variant font-label-md uppercase tracking-wider">Cliente</span>
+                                    <input id="pos-customer-name" oninput="state.posCustomerName = this.value" type="text" class="bg-transparent border-none p-0 text-right font-bold focus:ring-0 text-primary w-2/3 hover:underline cursor-pointer" value="Mostrador" placeholder="Nombre...">
+                                </div>
+                            </div>
+                            <div class="pt-8">
+                                <div class="relative group cursor-pointer overflow-hidden rounded-xl bg-surface-container p-4 border border-outline-variant/30 flex items-center gap-4 transition-all hover:bg-surface-variant">
+                                    <div class="flex-grow">
+                                        <p class="text-[10px] uppercase tracking-widest text-on-surface-variant/60 font-bold mb-1">Notas de cocina</p>
+                                        <input id="pos-notes-input" oninput="state.posNotes = this.value" type="text" class="w-full bg-transparent border-none p-0 text-xs text-on-surface-variant focus:ring-0" value="Añadir extra de servilletas y salsa de la casa en recipiente aparte...">
+                                    </div>
+                                    <span class="material-symbols-outlined text-outline">edit_note</span>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+                <!-- Grand Total Box -->
+                <section class="flex justify-end items-center -mt-2">
+                    <div class="w-full max-w-sm bg-primary text-on-primary p-6 rounded-2xl shadow-2xl flex flex-col items-end relative overflow-hidden group">
+                        <div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(circle_at_top_right,_white,_transparent)]"></div>
+                        <span class="font-label-lg text-xs uppercase tracking-[0.3em] block mb-1 opacity-70 relative z-10">TOTAL A PAGAR</span>
+                        <span id="pos-grand-total" class="font-display-lg text-5xl font-bold relative z-10">$0.00</span>
+                        <div class="mt-2 flex gap-2 relative z-10">
+                            <span class="px-2 py-1 bg-white/10 rounded text-[10px] font-bold tracking-widest uppercase">IVA Incluido (16%)</span>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Bottom Action Zone -->
+                <footer class="bg-surface-container-low border border-outline-variant/30 h-[120px] rounded-2xl p-4 z-10">
+                    <div class="grid grid-cols-4 h-full gap-4 max-w-screen-2xl mx-auto">
+                        <button onclick="exitPOSToAppShell('pending')" class="group flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl hover:bg-secondary-fixed hover:shadow-lg hover:-translate-y-0.5 transition-all active:scale-95 border border-secondary/10">
+                            <span class="material-symbols-outlined text-[24px] mb-1" style="font-variation-settings: 'FILL' 1;">list_alt</span>
+                            <span class="font-label-lg text-xs uppercase tracking-[0.1em] font-bold">Ver Pendientes</span>
+                        </button>
+                        <button onclick="processPOSPagoExacto()" class="group flex flex-col items-center justify-center bg-primary text-on-primary rounded-xl hover:bg-primary-container hover:shadow-xl hover:-translate-y-0.5 transition-all active:scale-95 border border-primary/20">
+                            <span class="material-symbols-outlined text-[24px] mb-1" style="font-variation-settings: 'FILL' 1;">payments</span>
+                            <span class="font-label-lg text-xs uppercase tracking-[0.1em] font-bold">Pago exacto</span>
+                        </button>
+                        <button onclick="anularOrdenPOS()" class="group flex flex-col items-center justify-center bg-surface-container-lowest text-tertiary rounded-xl border-2 border-outline-variant/30 hover:bg-error-container hover:border-error/30 hover:text-error hover:shadow-lg hover:-translate-y-0.5 transition-all active:scale-95">
+                            <span class="material-symbols-outlined text-[24px] mb-1">cancel_presentation</span>
+                            <span class="font-label-lg text-xs uppercase tracking-[0.1em] font-bold">Anular Orden</span>
+                        </button>
+                        <button onclick="switchPOSScreen('multipago')" class="group flex flex-col items-center justify-center bg-surface-container-highest text-on-surface rounded-xl border border-outline/20 hover:bg-outline-variant hover:shadow-lg hover:-translate-y-0.5 transition-all active:scale-95">
+                            <span class="material-symbols-outlined text-[24px] mb-1">account_balance_wallet</span>
+                            <span class="font-label-lg text-xs uppercase tracking-[0.1em] font-bold">Multipagos</span>
+                        </button>
+                    </div>
+                </footer>
+            </div>
+
+            <!-- PANEL 3.2: MULTIPAGO CONTROL -->
+            <div id="screen-multipago" class="pos-screen flex-grow grid grid-cols-12 gap-0 overflow-hidden hidden">
+                <!-- Left: Payment Controls -->
+                <section class="col-span-12 lg:col-span-8 p-margin-desktop flex flex-col overflow-y-auto">
+                    <div class="mb-gutter">
+                        <h2 class="font-display-lg text-display-lg text-primary uppercase tracking-wider mb-2">MULTIPAGO</h2>
+                        <div class="h-1 w-24 bg-secondary-container"></div>
+                    </div>
+                    <!-- Fast Cash Options -->
+                    <p class="font-label-lg text-on-surface-variant uppercase tracking-wider mb-2">Selección Rápida de Efectivo</p>
+                    <div class="grid grid-cols-3 gap-gutter mb-6">
+                        <button class="bg-surface-container-lowest border border-outline/20 flex flex-col items-center justify-center hover:bg-surface-container-highest active:scale-95 transition-all group h-24" onclick="handleMultipagoCashBtn(100)">
+                            <span class="text-secondary font-headline-lg text-headline-lg">$100.00</span>
+                            <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mt-2 group-hover:text-primary transition-colors">Efectivo</span>
+                        </button>
+                        <button class="bg-surface-container-lowest border border-outline/20 flex flex-col items-center justify-center hover:bg-surface-container-highest active:scale-95 transition-all group h-24" onclick="handleMultipagoCashBtn(200)">
+                            <span class="text-secondary font-headline-lg text-headline-lg">$200.00</span>
+                            <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mt-2 group-hover:text-primary transition-colors">Efectivo</span>
+                        </button>
+                        <button class="bg-surface-container-lowest border border-outline/20 flex flex-col items-center justify-center hover:bg-surface-container-highest active:scale-95 transition-all group h-24" onclick="handleMultipagoCashBtn(500)">
+                            <span class="text-secondary font-headline-lg text-headline-lg">$500.00</span>
+                            <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mt-2 group-hover:text-primary transition-colors">Efectivo</span>
+                        </button>
+                    </div>
+                    <!-- Alternative Payment -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mb-6">
+                        <button id="multipago-card-btn" class="bg-surface-container border border-outline/20 flex items-center justify-center gap-4 hover:bg-surface-container-highest active:scale-95 transition-all h-20" onclick="handleMultipagoMethodToggle('Tarjeta')">
+                            <span class="material-symbols-outlined text-tertiary text-3xl">credit_card</span>
+                            <span class="font-headline-md text-headline-md text-on-surface uppercase">Tarjeta</span>
+                        </button>
+                        <div class="bg-surface-container-low border border-outline/20 flex flex-col p-4 h-20 rounded-lg">
+                            <span class="font-label-md text-label-md text-on-surface-variant uppercase mb-1">Monto Recibido Personalizado</span>
+                            <div class="flex items-center gap-2">
+                                <span class="font-headline-md text-headline-md text-primary">$</span>
+                                <input id="multipago-custom-amount" class="w-full bg-transparent border-none font-headline-md text-headline-md p-0 focus:ring-0" placeholder="0.00" type="number" step="0.01" oninput="handleMultipagoCustomInput(this.value)">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bottom Actions Layout -->
+                    <div class="flex justify-between items-end mt-auto">
+                        <button class="h-16 px-12 border-2 border-tertiary text-tertiary font-headline-md text-headline-md uppercase hover:bg-tertiary hover:text-white transition-all flex items-center gap-2 rounded-lg" onclick="switchPOSScreen('pos')">
+                            <span class="material-symbols-outlined">arrow_back</span>
+                            Regresar a Orden
+                        </button>
+                    </div>
+                </section>
+                <!-- Right: Order Summary & Change -->
+                <aside class="col-span-12 lg:col-span-4 bg-surface-container-low border-l border-outline-variant/20 flex flex-col p-margin-desktop relative overflow-y-auto">
+                    <div class="mb-gutter">
+                        <h3 class="font-headline-md text-headline-md text-on-surface border-b border-outline/20 pb-2 mb-4">Resumen de Orden</h3>
+                        <!-- Table Summary -->
+                        <div id="multipago-summary-list" class="space-y-2 mb-gutter max-h-[30vh] overflow-y-auto custom-scrollbar">
+                            <!-- filled dynamically -->
+                        </div>
+                        <div class="mt-6 space-y-2 pt-4 border-t border-outline/10">
+                            <div class="flex justify-between text-on-surface-variant font-label-md text-label-md">
+                                <span>Subtotal</span>
+                                <span id="multipago-subtotal-val">$0.00</span>
+                            </div>
+                            <div class="flex justify-between text-on-surface-variant font-label-md text-label-md">
+                                <span>IVA (16%)</span>
+                                <span id="multipago-iva-val">$0.00</span>
+                            </div>
+                            <div class="flex justify-between items-end pt-4">
+                                <span class="font-headline-md text-headline-md text-on-surface uppercase">Total</span>
+                                <span class="font-display-lg text-display-lg text-primary font-bold" id="multipago-total-val">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Change Display Area -->
+                    <div class="mt-auto pt-6 border-t-2 border-dashed border-outline/20">
+                        <div class="mb-2 flex justify-between items-center">
+                            <span class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest">Recibido</span>
+                            <span class="font-headline-md text-headline-md text-on-surface-variant" id="multipago-received-display">$0.00</span>
+                        </div>
+                        <!-- The "Arroja cambio de monto seleccionado" Area -->
+                        <div id="multipago-change-box" class="bg-primary text-on-primary p-6 shadow-xl relative overflow-hidden group transition-all rounded-xl">
+                            <div class="absolute top-0 right-0 p-2 opacity-10">
+                                <span class="material-symbols-outlined text-6xl">payments</span>
+                            </div>
+                            <span class="font-label-md text-label-md uppercase tracking-[0.2em] opacity-80 block mb-1">Cambio a Entregar</span>
+                            <div class="flex items-baseline justify-between">
+                                <span class="font-display-lg text-display-lg font-extrabold tracking-tight" id="multipago-change-display">$0.00</span>
+                                <span class="material-symbols-outlined text-secondary-container">arrow_forward</span>
+                            </div>
+                        </div>
+                        <button onclick="confirmMultipagoSubmit()" class="w-full mt-4 h-16 bg-secondary-container text-on-secondary-container font-headline-md text-headline-md uppercase hover:brightness-105 active:scale-[0.98] transition-all flex items-center justify-center gap-3 rounded-xl">
+                            <span>Finalizar Pago</span>
+                            <span class="material-symbols-outlined">check_circle</span>
+                        </button>
+                    </div>
+                </aside>
+            </div>
+
+            <!-- PANEL 3.3: TICKET DE VENTA EXITOSA -->
+            <div id="screen-ticket" class="pos-screen flex-grow overflow-y-auto order-pattern p-8 flex flex-col items-center justify-between hidden">
+                <!-- Main Success Message -->
+                <div class="text-center mt-4">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary text-on-primary mb-4 shadow-md">
+                        <span class="material-symbols-outlined !text-4xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                    </div>
+                    <h2 class="font-display-lg text-3xl text-primary uppercase tracking-wider mb-1">Venta Exitosa</h2>
+                    <p id="ticket-success-sub" class="font-body-md text-on-surface-variant">La transacción se ha completado correctamente.</p>
+                </div>
+                <!-- TICKET BOX -->
+                <div class="w-full max-w-2xl bg-white border border-outline-variant/30 p-8 rounded-xl shadow-sm flex flex-col items-center my-6">
+                    <h3 class="font-label-lg text-lg text-on-surface-variant uppercase tracking-[0.2em] mb-8 pb-1 border-b-2 border-secondary-container">TICKET DETALLES</h3>
+                    <!-- Action Buttons Cluster -->
+                    <div class="grid grid-cols-2 gap-6 w-full">
+                        <!-- IMPRIMIR TICKET -->
+                        <button onclick="showToast('Imprimiendo ticket de venta... (Simulado)', 'success')" class="group flex flex-col items-center justify-center gap-3 py-10 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-200 rounded-lg active:scale-95">
+                            <span class="material-symbols-outlined !text-5xl group-hover:scale-110 transition-transform">print</span>
+                            <span class="font-label-lg uppercase tracking-widest text-sm">Imprimir Ticket</span>
+                        </button>
+                        <!-- NO IMPRIMIR -->
+                        <button onclick="showToast('Venta finalizada sin ticket impreso.', 'info')" class="group flex flex-col items-center justify-center gap-3 py-10 border-2 border-outline text-outline hover:bg-outline hover:text-white transition-all duration-200 rounded-lg active:scale-95">
+                            <span class="material-symbols-outlined !text-5xl group-hover:scale-110 transition-transform">block</span>
+                            <span class="font-label-lg uppercase tracking-widest text-sm">No Imprimir</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Global Action -->
+                <div class="w-full max-w-2xl mb-4">
+                    <button onclick="startNewPOSSale()" class="w-full h-14 bg-secondary-container text-on-secondary-container font-headline-md text-xl flex items-center justify-center gap-3 rounded-lg hover:bg-secondary-fixed shadow-md hover:shadow-lg transition-all active:scale-[0.98]">
+                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                        NUEVA VENTA
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- ------------------ 4. FLOATING MODAL OVERLAYS ------------------ -->
+    
+    <!-- MODAL A: AÑADIR EXISTENCIAS MODAL -->
+    <div id="modal-add-stock" class="fixed inset-0 modal-blur flex items-center justify-center z-50 p-margin-mobile hidden">
+        <section class="bg-background w-full max-w-lg border border-outline-variant/30 shadow-2xl relative rounded-xl overflow-hidden">
+            <div class="px-container-padding py-6 border-b border-outline-variant/20">
+                <h2 class="font-headline-md text-headline-md text-primary">Añadir Existencias</h2>
+            </div>
+            <div class="p-container-padding space-y-8">
+                <!-- Product Summary -->
+                <div class="bg-surface-container-low p-4 border border-outline-variant/40 rounded-lg">
+                    <div class="flex items-center gap-3 mb-1">
+                        <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+                        <h3 id="add-stock-pname" class="font-body-lg text-body-lg font-bold text-on-surface">Nombre del Producto</h3>
+                    </div>
+                    <p class="font-label-lg text-label-lg text-on-surface-variant flex items-center gap-2">
+                        Existencia actual: <span id="add-stock-pcurrent" class="bg-secondary-container px-2 py-0.5 font-bold text-on-secondary-container rounded">0</span>
+                    </p>
+                </div>
+                <!-- Input Zone -->
+                <div class="space-y-4">
+                    <label class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant" for="stock-input">CANTIDAD A AÑADIR</label>
+                    <div class="relative group">
+                        <input class="w-full h-20 text-center font-display-lg text-display-lg bg-surface-container-lowest border-2 border-outline-variant focus:border-primary focus:ring-0 transition-colors input-no-spinner rounded-lg" id="stock-input" min="0" type="number" value="0">
+                        <div class="absolute inset-y-0 right-4 flex flex-col justify-center gap-2">
+                            <button class="p-1 hover:bg-surface-container-high transition-colors text-on-surface-variant" onclick="adjustAddStockValue(1)">
+                                <span class="material-symbols-outlined">add</span>
+                            </button>
+                            <button class="p-1 hover:bg-surface-container-high transition-colors text-on-surface-variant" onclick="adjustAddStockValue(-1)">
+                                <span class="material-symbols-outlined">remove</span>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-tertiary-container font-label-md text-label-md flex items-center gap-2 italic">
+                        <span class="material-symbols-outlined text-[16px]">info</span>
+                        La cantidad que agregará será sumado a la existencia actual
+                    </p>
+                </div>
+            </div>
+            <div class="p-container-padding pb-8 pt-4 flex gap-4">
+                <button onclick="closeAddStockModal()" class="flex-1 h-[56px] border border-tertiary text-tertiary font-label-lg text-label-lg hover:bg-surface-container-high transition-all rounded-lg">
+                    Cancelar
+                </button>
+                <button onclick="confirmAddStock()" class="flex-1 h-[56px] bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container transition-all shadow-sm rounded-lg">
+                    Confirmar
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- MODAL B: ELIMINAR PRODUCTO MODAL -->
+    <div id="modal-delete-product" class="fixed inset-0 modal-blur z-[200] flex items-center justify-center bg-on-surface/40 backdrop-blur-sm hidden">
+        <div class="bg-surface-container-lowest border border-outline p-8 max-w-md w-full shadow-2xl flex flex-col gap-6 rounded-xl">
+            <div class="flex flex-col items-center text-center gap-4">
+                <div class="w-16 h-16 rounded-full bg-error-container flex items-center justify-center text-error">
+                    <span class="material-symbols-outlined text-4xl">delete_forever</span>
+                </div>
+                <div>
+                    <h2 class="font-headline-md text-headline-md text-on-surface">¿Eliminar Producto?</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant mt-2">Estás a punto de eliminar permanentemente este insumo del inventario.</p>
+                </div>
+            </div>
+            <div class="bg-surface-container p-4 border border-outline-variant/30 rounded-lg flex flex-col items-center gap-2">
+                <span id="delete-modal-pname" class="font-headline-md text-headline-md font-bold text-on-surface">Nombre</span>
+            </div>
+            <div class="flex flex-col gap-3">
+                <button onclick="confirmDeleteProduct()" class="w-full py-3 bg-error text-on-error font-label-lg text-label-lg hover:bg-on-error-container transition-colors rounded-lg">
+                    Confirmar Eliminación
+                </button>
+                <button onclick="closeDeleteProductModal()" class="w-full py-3 border border-outline text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container-high transition-colors rounded-lg">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL C: CORTE DE CAJA MODAL -->
+    <div id="modal-corte-caja" class="fixed inset-0 modal-blur z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-surface-container-lowest w-full max-w-2xl border border-outline shadow-2xl rounded-xl flex flex-col overflow-hidden">
+            <!-- Modal Header -->
+            <div class="p-6 border-b border-outline-variant/20 bg-surface-container-low">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-primary-container text-on-primary-container flex items-center justify-center rounded-lg">
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+                    </div>
+                    <div>
+                        <h2 class="font-headline-lg text-headline-lg text-on-surface">Corte de Caja</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Body -->
+            <div class="p-8 space-y-8 max-h-[70vh] overflow-y-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <!-- Left Col: Ventas -->
+                    <div>
+                        <h3 class="font-label-lg text-label-lg text-primary border-b border-primary/20 pb-2 mb-4">RESUMEN DE VENTAS</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center text-on-surface-variant">
+                                <span class="font-body-md text-body-md">Efectivo</span>
+                                <span id="corte-sales-cash" class="font-label-lg text-label-lg text-on-surface">$0.00</span>
+                            </div>
+                            <div class="flex justify-between items-center text-on-surface-variant">
+                                <span class="font-body-md text-body-md">Tarjeta</span>
+                                <span id="corte-sales-card" class="font-label-lg text-label-lg text-on-surface">$0.00</span>
+                            </div>
+                            <div class="flex justify-between items-center text-on-surface-variant">
+                                <span class="font-body-md text-body-md">QR / Transferencia</span>
+                                <span id="corte-sales-qr" class="font-label-lg text-label-lg text-on-surface">$0.00</span>
+                            </div>
+                            <div class="pt-3 border-t border-dashed border-outline-variant flex justify-between items-center">
+                                <span class="font-label-lg text-label-lg text-on-surface">Ventas Totales</span>
+                                <span id="corte-sales-total" class="font-headline-md text-headline-md text-primary">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right Col: Fondo -->
+                    <div>
+                        <h3 class="font-label-lg text-label-lg text-tertiary border-b border-tertiary/20 pb-2 mb-4">FONDO DE CAJA</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center text-on-surface-variant">
+                                <span class="font-body-md text-body-md">Fondo Inicial</span>
+                                <span class="font-label-lg text-label-lg text-on-surface">$5,000.00</span>
+                            </div>
+                            <div class="flex justify-between items-center text-on-surface-variant">
+                                <span class="font-body-md text-body-md">Efectivo Esperado</span>
+                                <span id="corte-expected-cash" class="font-label-lg text-label-lg text-on-surface font-bold">$5,000.00</span>
+                            </div>
+                            <p class="text-[10px] text-on-surface-variant italic leading-tight mt-4">
+                                * Efectivo Esperado = Fondo Inicial ($5,000.00) + Ventas en Efectivo.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Input Section -->
+                <div class="grid grid-cols-12 gap-6 items-end">
+                    <div class="col-span-12 sm:col-span-7">
+                        <label class="font-label-md text-label-md text-on-surface-variant mb-2 block uppercase tracking-wider">Efectivo Contado (Fondo + Ventas)</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-headline-md">$</span>
+                            <input id="corte-counted-input" oninput="calculateCorteDiferencia(this.value)" class="w-full bg-surface-container-low border-2 border-outline-variant focus:border-primary focus:ring-0 rounded-lg h-16 pl-10 text-headline-md text-on-surface font-bold" step="0.01" type="number">
+                        </div>
+                    </div>
+                    <div class="col-span-12 sm:col-span-5">
+                        <div class="bg-surface-container h-16 flex flex-col justify-center px-4 rounded-lg border-l-4 border-primary">
+                            <span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">Diferencia</span>
+                            <span id="corte-difference" class="text-headline-md font-bold text-primary">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Textarea -->
+                <div>
+                    <label class="font-label-md text-label-md text-on-surface-variant mb-2 block uppercase tracking-wider">Observaciones del Cierre</label>
+                    <textarea class="w-full bg-surface-container-lowest border border-outline-variant focus:border-primary focus:ring-0 rounded-lg h-24 p-4 text-body-md" placeholder="Notas sobre faltantes, propinas o incidencias..."></textarea>
+                </div>
+            </div>
+            <!-- Modal Footer -->
+            <div class="p-6 bg-surface-container-high flex justify-end gap-4 border-t border-outline-variant/20">
+                <button onclick="closeCorteCajaModal()" class="px-8 py-4 font-label-lg text-label-lg text-secondary border border-secondary hover:bg-secondary/5 rounded-lg uppercase tracking-wider">
+                    CANCELAR
+                </button>
+                <button onclick="confirmCorteCajaSubmit()" class="px-8 py-4 font-label-lg text-label-lg bg-primary text-on-primary hover:opacity-90 rounded-lg shadow-lg uppercase tracking-wider flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">lock_person</span>
+                    CONFIRMAR CORTE Y CERRAR SESIÓN
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL D: CERRAR SESION / LOGOUT MODAL -->
+    <div id="modal-logout" class="fixed inset-0 modal-blur z-[250] flex items-center justify-center p-margin-mobile hidden">
+        <div class="bg-surface border border-outline-variant w-full max-w-md shadow-2xl overflow-hidden flex flex-col rounded-xl">
+            <div class="p-8 flex flex-col items-center text-center space-y-6">
+                <div class="w-16 h-16 bg-error-container text-error rounded-full flex items-center justify-center mb-2">
+                    <span class="material-symbols-outlined text-4xl">logout</span>
+                </div>
+                <div class="space-y-2">
+                    <h2 class="font-headline-md text-headline-md text-on-surface">¿Cerrar Sesión?</h2>
+                    <p class="font-body-md text-on-surface-variant px-4">
+                        Asegúrate de haber guardado todos los cambios y realizado el corte de caja si es necesario.
+                    </p>
+                </div>
+                <div class="flex flex-col w-full gap-3">
+                    <button onclick="confirmLogout()" class="w-full py-3.5 bg-error text-on-error font-label-lg hover:opacity-90 uppercase tracking-widest rounded-xl shadow-lg">
+                        Cerrar Sesión
+                    </button>
+                    <button onclick="closeLogoutModal()" class="w-full py-3.5 border-2 border-outline-variant text-on-surface-variant font-label-lg hover:bg-surface-container rounded-xl">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ------------------ 5. FLOATING TOAST SYSTEM ------------------ -->
+    <div class="fixed bottom-6 right-6 z-[300] pointer-events-none flex flex-col gap-3" id="toast-container"></div>
+
+
+    <!-- ------------------ 6. SYSTEM JAVASCRIPT STATE & ROUTING ------------------ -->
+    <script>
+        // Global Application State
+        const state = {
+            products: [
+                { id: "01", name: "Pan de Sándwich (Artesanal)", category: "Panadería", stock: 4, unit: "unid.", price: 15.00},
+                { id: "02", name: "Jamón Serrano", category: "Cárnicos", stock: 300, unit: "g", price: 0.25 },
+                { id: "03", name: "Queso Manchego", category: "Lácteos", stock: 2.5, unit: "kg", price: 120.00 },
+                { id: "04", name: "Tomates", category: "Vegetales", stock: 800, unit: "g", price: 0.04 },
+                { id: "05", name: "Café de Grano (Tostado Medio)", category: "Bebidas", stock: 5.0, unit: "kg", price: 250.00 },
+                { id: "06", name: "Naranjoso Michi", category: "Sándwiches", stock: 15, unit: "unid.", price: 55.00 },
+                { id: "07", name: "Michi Vulcano", category: "Sándwiches", stock: 10, unit: "unid.", price: 60.00 },
+                { id: "08", name: "Epic Chanwis", category: "Sándwiches", stock: 8, unit: "unid.", price: 70.00 },
+                { id: "09", name: "Special Michi", category: "Sándwiches", stock: 12, unit: "unid.", price: 65.00 },
+                { id: "10", name: "Supreme Michi", category: "Sándwiches", stock: 6, unit: "unid.", price: 75.00 }
+            ],
+            pendingOrders: [
+                { id: "1234", location: "Mesa 04", customer: "S. Ramirez", items: [ { name: "Naranjoso Michi", price: 55.00, quantity: 1 }, { name: "Café de Grano (Tostado Medio)", price: 12.00, quantity: 2 } ] },
+                { id: "1235", location: "Para Llevar", customer: "M. Tanaka", items: [ { name: "Epic Chanwis", price: 70.00, quantity: 1 } ] },
+                { id: "1236", location: "Mesa 12", customer: "J. Doe", items: [ { name: "Supreme Michi", price: 75.00, quantity: 1 }, { name: "Tomates", price: 5.00, quantity: 1 } ] }
+            ],
+            cart: [],
+            posOrderType: "Para llevar",
+            posCustomerName: "Mostrador",
+            posNotes: "Añadir extra de servilletas y salsa de la casa en recipiente aparte...",
+            transactions: [
+                { id: "TX-94821", time: "14:23 PM", customer: "Kenji Sato", total: 42.50, method: "Tarjeta" },
+                { id: "TX-94820", time: "13:58 PM", customer: "Maria Garcia", total: 18.90, method: "Efectivo" },
+                { id: "TX-94819", time: "13:42 PM", customer: "Yuki Tanaka", total: 35.00, method: "Efectivo" },
+                { id: "TX-94818", time: "13:15 PM", customer: "Elena Rodriguez", total: 12.45, method: "Tarjeta" },
+                { id: "TX-94817", time: "12:50 PM", customer: "Anonymous Customer", total: 64.20, method: "QR / Transferencia" }
+            ],
+            settings: {
+                branchName: "Sandoichi - Sede Central",
+                terminalId: "TERM-001",
+                language: "Español (Latinoamérica)",
+                timezone: "(GMT-06:00) Central America",
+                payments: {
+                    cash: true,
+                    card: true,
+                    qr: false
+                },
+                staff: [
+                    { name: "Juan Pérez", role: "Cajero", status: "Activo" },
+                    { name: "María García", role: "Chef", status: "Activo" }
+                ]
+            },
+            currentUser: null,
+            multipago: {
+                received: 0,
+                method: "Efectivo"
+            },
+            activeAddStockProduct: null,
+            activeDeleteProduct: null
+        };
+
+        // Initialize App
+        window.addEventListener('DOMContentLoaded', () => {
+            showTopLevelView('login');
+            startLiveClock();
+            
+            // Prefill global search interaction
+            document.getElementById('global-search').addEventListener('input', (e) => {
+                const term = e.target.value.trim().toLowerCase();
+                if (term) {
+                    // Navigate to inventory and search there
+                    switchAppShellScreen('inventory');
+                    document.getElementById('inventory-search').value = term;
+                    renderInventoryTable();
+                }
+            });
+        });
+
+        // ------------------ TOP-LEVEL NAVIGATION / ROUTING ------------------
+        function showTopLevelView(viewId) {
+            // Hide all
+            document.getElementById('view-login').classList.add('hidden');
+            document.getElementById('view-app-shell').classList.add('hidden');
+            document.getElementById('view-pos-shell').classList.add('hidden');
+
+            // Show active
+            if (viewId === 'login') {
+                document.getElementById('view-login').classList.remove('hidden');
+            } else if (viewId === 'app-shell') {
+                document.getElementById('view-app-shell').classList.remove('hidden');
+                switchAppShellScreen('menu'); // default tab
+            } else if (viewId === 'pos') {
+                document.getElementById('view-pos-shell').classList.remove('hidden');
+                switchPOSScreen('pos'); // default pos screen
+            }
+        }
+
+        // Toggles views inside App Shell
+        function switchAppShellScreen(screenId) {
+            // Hide all sub screens
+            const screens = document.querySelectorAll('.app-screen');
+            screens.forEach(s => s.classList.add('hidden'));
+
+            // Show selected screen
+            const activeScreen = document.getElementById(`screen-${screenId}`);
+            if (activeScreen) {
+                activeScreen.classList.remove('hidden');
+            }
+
+            // Sync sidebar button active classes
+            const btns = document.querySelectorAll('.sidebar-btn');
+            btns.forEach(b => {
+                b.classList.remove('bg-secondary-container', 'text-on-secondary-container', 'font-bold');
+                b.classList.add('text-on-surface-variant', 'hover:bg-surface-variant/50');
+            });
+
+            // Special highlight for active sidebar item
+            const activeBtn = document.getElementById(`side-btn-${screenId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-secondary-container', 'text-on-secondary-container', 'font-bold');
+                activeBtn.classList.remove('text-on-surface-variant', 'hover:bg-surface-variant/50');
+            }
+
+            // Screen-specific rendering
+            if (screenId === 'menu') {
+                renderMenuProducts();
+                updateDashboardStats();
+            } else if (screenId === 'inventory') {
+                renderInventoryTable();
+            } else if (screenId === 'pending') {
+                renderPendingOrders();
+            } else if (screenId === 'completed') {
+                renderCompletedTransactions();
+            } else if (screenId === 'settings') {
+                renderSettingsPanel();
+            }
+        }
+
+        // Toggles views inside POS Shell
+        function switchPOSScreen(posScreenId) {
+            const screens = document.querySelectorAll('.pos-screen');
+            screens.forEach(s => s.classList.add('hidden'));
+
+            const activeScreen = document.getElementById(`screen-${posScreenId}`);
+            if (activeScreen) {
+                activeScreen.classList.remove('hidden');
+            }
+
+            // Sync POS header tabs
+            const tabBtn = document.getElementById('pos-header-tab-pos');
+            if (posScreenId === 'pos') {
+                tabBtn.classList.add('border-b-4', 'border-primary', 'text-primary', 'font-bold');
+                tabBtn.classList.remove('text-on-surface-variant', 'font-medium');
+                renderPOSCart();
+            } else {
+                tabBtn.classList.remove('border-b-4', 'border-primary', 'text-primary', 'font-bold');
+                tabBtn.classList.add('text-on-surface-variant', 'font-medium');
+            }
+
+            if (posScreenId === 'multipago') {
+                renderMultipagoScreen();
+            }
+        }
+
+        // Live Clock helper
+        function startLiveClock() {
+            const updateClock = () => {
+                const now = new Date();
+                const options = { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+                const formatted = now.toLocaleDateString('es-ES', options);
+                
+                const timeMenu = document.getElementById('live-time-menu');
+                if (timeMenu) {
+                    timeMenu.innerText = formatted;
+                }
+            };
+            setInterval(updateClock, 1000);
+            updateClock();
+        }
+
+        // Toast notifications system
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            toast.className = `px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 transition-all transform translate-y-4 opacity-0 max-w-sm pointer-events-auto bg-on-surface text-surface`;
+            
+            let icon = 'check_circle';
+            let iconClass = 'text-primary-fixed';
+            if (type === 'warning') {
+                icon = 'report_problem';
+                iconClass = 'text-secondary-container';
+            } else if (type === 'error') {
+                icon = 'error';
+                iconClass = 'text-error';
+            } else if (type === 'info') {
+                icon = 'info';
+                iconClass = 'text-sky-400';
+            }
+
+            toast.innerHTML = `
+                <span class="material-symbols-outlined ${iconClass}">${icon}</span>
+                <span class="font-label-lg text-label-lg">${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            // Animate In
+            setTimeout(() => {
+                toast.classList.remove('translate-y-4', 'opacity-0');
+            }, 50);
+
+            // Animate Out & Remove
+            setTimeout(() => {
+                toast.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3000);
+        }
+
+
+        // ------------------ 1. LOGIN CONTROLLER ------------------
+        function togglePasswordVisibility() {
+            const passInput = document.getElementById('password');
+            const icon = document.getElementById('password-toggle-icon');
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+                icon.innerText = 'visibility_off';
+            } else {
+                passInput.type = 'password';
+                icon.innerText = 'visibility';
+            }
+        }
+
+        function handleLoginSubmit(event) {
+            event.preventDefault();
+            const btn = document.getElementById('login-submit-btn');
+            const uName = document.getElementById('username').value.trim();
+
+            // Simulate loading spinner
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> Iniciando...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                // Show Success Toast
+                const successToast = document.createElement('div');
+                successToast.id = 'login-success-toast';
+                successToast.className = 'fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] transition-all duration-300 transform translate-y-4 opacity-0 flex justify-center w-full';
+                successToast.innerHTML = `
+                    <div class="bg-primary text-on-primary px-6 py-3 rounded-full shadow-lg flex items-center justify-center gap-3 min-w-[280px]">
+                        <span class="material-symbols-outlined">check_circle</span>
+                        <span class="font-label-lg">Inicio Exitosamente</span>
+                    </div>
+                `;
+                document.body.appendChild(successToast);
+
+                // Animate Toast In
+                setTimeout(() => {
+                    successToast.classList.remove('translate-y-4', 'opacity-0');
+                }, 50);
+
+                // Hide Toast and Transition to Dashboard after 1.5s
+                setTimeout(() => {
+                    successToast.classList.add('translate-y-4', 'opacity-0');
+                    setTimeout(() => {
+                        successToast.remove();
+                    }, 300);
+
+                    // Set user session
+                    state.currentUser = uName || 'Miausculo24';
+                    
+                    // Sync user interface texts
+                    const profileNameTexts = document.querySelectorAll('.profile-name-text');
+                    profileNameTexts.forEach(t => t.innerText = state.currentUser);
+                    document.getElementById('username-display').innerText = state.currentUser;
+
+                    // Restore submit button
+                    btn.innerHTML = 'Entrar <span class="material-symbols-outlined">arrow_forward</span>';
+                    btn.disabled = false;
+
+                    // Transition
+                    showTopLevelView('app-shell');
+                    showToast(`¡Bienvenido de nuevo, ${state.currentUser}!`, 'success');
+                }, 1500);
+
+            }, 1200);
+        }
+
+
+        // ------------------ 2. MAIN APP SHELL GENERALS ------------------
+        function triggerReloadSimulation() {
+            showToast('Sincronizando estado del sistema con servidor central...', 'info');
+            setTimeout(() => {
+                showToast('Base de datos sincronizada correctamente.', 'success');
+            }, 1000);
+        }
+
+        function updateDashboardStats() {
+            // Count total sales of today (sum transactions)
+            const sumSales = state.transactions.reduce((acc, t) => acc + t.total, 0);
+            document.getElementById('stats-menu-sales').innerText = `$${sumSales.toFixed(2)}`;
+
+            // Count pending orders
+            const pCount = state.pendingOrders.length;
+            document.getElementById('stats-menu-pending').innerText = pCount;
+            document.getElementById('badge-pending-count').innerText = pCount;
+        }
+
+
+        // ------------------ 3. MENU PRINCIPAL CONTROLLER ------------------
+        function renderMenuProducts() {
+            const container = document.getElementById('menu-product-list');
+            if (!container) return;
+
+            container.innerHTML = '';
+
+            state.products.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'menu-product-item flex items-center justify-between p-4 bg-surface rounded-lg border border-outline-variant/10 hover:bg-surface-variant/30 transition-colors cursor-pointer';
+                card.setAttribute('data-pname', p.name.toLowerCase());
+                card.onclick = (e) => {
+                    // prevent infinite trigger if clicking checkbox itself
+                    if (e.target.type !== 'checkbox') {
+                        const check = card.querySelector('input[type="checkbox"]');
+                        check.checked = !check.checked;
+                    }
+                    updateMenuCheckedCount();
+                };
+
+                card.innerHTML = `
+                    <div class="flex flex-col">
+                        <span class="font-headline-md text-on-surface">${p.name}</span>
+                        <span class="text-xs text-on-surface-variant opacity-75">Precio: $${p.price.toFixed(2)}</span>
+                    </div>
+                    <input class="w-6 h-6 rounded border-outline-variant text-primary focus:ring-primary cursor-pointer" type="checkbox" data-pid="${p.id}" value="${p.id}">
+                `;
+
+                container.appendChild(card);
+            });
+            updateMenuCheckedCount();
+        }
+
+        function filterMenuProducts() {
+            const val = document.getElementById('menu-search-input').value.toLowerCase().trim();
+            const items = document.querySelectorAll('.menu-product-item');
+            items.forEach(item => {
+                const name = item.getAttribute('data-pname');
+                if (name.includes(val)) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        }
+
+        function updateMenuCheckedCount() {
+            const checked = document.querySelectorAll('#menu-product-list input[type="checkbox"]:checked');
+            document.getElementById('checked-menu-items-count').innerText = `${checked.length} productos seleccionados`;
+        }
+
+        function generatePOSOrderFromMenu() {
+            const checkedBoxes = document.querySelectorAll('#menu-product-list input[type="checkbox"]:checked');
+            
+            // clear active POS Cart
+            state.cart = [];
+            state.posOrderType = "Para llevar";
+            state.posCustomerName = "Mostrador";
+            state.posNotes = "Añadir extra de servilletas...";
+
+            if (checkedBoxes.length === 0) {
+                showToast('Por favor, seleccione al menos un producto para generar la orden.', 'warning');
+                return;
+            }
+
+            checkedBoxes.forEach(box => {
+                const pId = box.getAttribute('data-pid');
+                const product = state.products.find(p => p.id === pId);
+                if (product) {
+                    state.cart.push({
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        quantity: 1
+                    });
+                }
+            });
+
+            // Navigate to POS with selected items loaded
+            showTopLevelView('pos');
+            showToast('Comanda cargada exitosamente en el Punto de Venta.', 'success');
+        }
+
+
+        // ------------------ 4. INVENTARIO CONTROLLER ------------------
+        function renderInventoryTable() {
+            const tbody = document.getElementById('inventory-tbody');
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+            const searchVal = document.getElementById('inventory-search').value.toLowerCase().trim();
+
+            let lowStockCount = 0;
+            let sumInvValue = 0;
+            const uniqueCategories = new Set();
+
+            state.products.forEach(p => {
+                uniqueCategories.add(p.category);
+                sumInvValue += p.price * p.stock;
+                if (p.stock <= 4) lowStockCount++;
+            });
+
+            // Update stats cards
+            document.getElementById('inv-total-products').innerText = state.products.length;
+            document.getElementById('inv-low-stock').innerText = lowStockCount;
+            document.getElementById('inv-categories').innerText = uniqueCategories.size;
+            document.getElementById('inv-total-value').innerText = `$${sumInvValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+            // Render matching rows
+            state.products.forEach((p, idx) => {
+                if (searchVal && !p.name.toLowerCase().includes(searchVal) && !p.sku.toLowerCase().includes(searchVal)) {
+                    return;
+                }
+
+                const isLow = p.stock <= 4;
+                const tr = document.createElement('tr');
+                tr.className = 'order-row group hover:bg-surface-variant/20 transition-colors';
+                
+                let stockCell = `
+                    <div class="flex items-center gap-2">
+                        <span class="font-headline-md font-bold text-primary">${p.stock}</span>
+                        <span class="text-on-surface-variant font-label-md text-label-md">${p.unit}</span>
+                    </div>
+                `;
+
+                if (isLow) {
+                    stockCell = `
+                        <div class="flex items-center gap-2">
+                            <span class="font-headline-md font-bold text-error">${p.stock}</span>
+                            <span class="text-on-surface-variant font-label-md text-label-md">${p.unit}</span>
+                            <div class="bg-error-container text-error p-1 rounded flex items-center" title="Stock Crítico">
+                                <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">warning</span>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                tr.innerHTML = `
+                    <td class="px-6 py-4 font-label-md text-label-md text-on-surface-variant">${p.id}</td>
+                    <td class="px-6 py-4 font-body-md text-body-md font-bold text-on-surface">${p.name}</td>
+                    <td class="px-6 py-4">
+                        <span class="bg-secondary-container text-on-secondary-container px-3 py-1 text-xs font-bold uppercase tracking-tight rounded">${p.category}</span>
+                    </td>
+                    <td class="px-6 py-4">${stockCell}</td>
+                    <td class="px-6 py-4 text-right">
+                        <div class="flex justify-end gap-2">
+                            <button onclick="openAddStockModal('${p.id}')" class="p-2 text-primary hover:bg-primary-container/10 transition-all rounded-lg active:scale-90" title="Añadir stock">
+                                <span class="material-symbols-outlined">add_circle</span>
+                            </button>
+                            <button onclick="openDeleteProductModal('${p.id}')" class="p-2 text-error hover:bg-error-container/20 transition-all rounded-lg active:scale-90" title="Eliminar producto">
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>
+                        </div>
+                    </td>
+                `;
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Add Product Form margins helper
+        function updateMarginGain() {
+            const price = parseFloat(document.getElementById('p-price').value) || 0;
+            const cost = parseFloat(document.getElementById('p-cost').value) || 0;
+            
+            const marginDisplay = document.getElementById('p-margin-display');
+            const ivaDisplay = document.getElementById('p-iva-display');
+
+            if (price > 0) {
+                const margin = ((price - cost) / price) * 100;
+                marginDisplay.textContent = `${margin.toFixed(1)}%`;
+                
+                // 16% IVA calculation
+                const iva = price * 0.16;
+                ivaDisplay.textContent = `$${iva.toFixed(2)}`;
+            } else {
+                marginDisplay.textContent = '-- %';
+                ivaDisplay.textContent = '$0.00';
+            }
+        }
+
+        function showAddProductScreen() {
+            // hide inventory, show add product form panel
+            document.getElementById('screen-inventory').classList.add('hidden');
+            document.getElementById('screen-add-product').classList.remove('hidden');
+
+            // Reset inputs
+            document.getElementById('p-name').value = '';
+            document.getElementById('p-category').selectedIndex = 0;
+            document.getElementById('p-sku').value = '';
+            document.getElementById('p-price').value = '';
+            document.getElementById('p-cost').value = '';
+            document.getElementById('p-stock').value = '';
+            document.getElementById('p-description').value = '';
+            updateMarginGain();
+        }
+
+        function handleNewProductSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('p-name').value.trim();
+            const category = document.getElementById('p-category').value;
+            const price = parseFloat(document.getElementById('p-price').value) || 0;
+            const stock = parseFloat(document.getElementById('p-stock').value) || 0;
+
+            const nextId = String(state.products.length + 1).padStart(2, '0');
+
+            state.products.push({
+                id: nextId,
+                name: name,
+                category: category,
+
+                price: price,
+  
+                stock: stock,
+                unit: 'unid.',
+
+            });
+
+            // success toast and return
+            showToast(`Producto "${name}" agregado exitosamente.`, 'success');
+            switchAppShellScreen('inventory');
+        }
+
+        function triggerPDFDownload() {
+            showToast('Generando reporte PDF del inventario...', 'info');
+            setTimeout(() => {
+                showToast('PDF descargado correctamente.', 'success');
+            }, 1000);
+        }
+
+        // Add Stock Modal Actions
+        function openAddStockModal(productId) {
+            const product = state.products.find(p => p.id === productId);
+            if (!product) return;
+
+            state.activeAddStockProduct = product;
+            document.getElementById('add-stock-pname').innerText = product.name;
+            document.getElementById('add-stock-pcurrent').innerText = `${product.stock} ${product.unit}`;
+            document.getElementById('stock-input').value = 0;
+
+            document.getElementById('modal-add-stock').classList.remove('hidden');
+        }
+
+        function closeAddStockModal() {
+            document.getElementById('modal-add-stock').classList.add('hidden');
+            state.activeAddStockProduct = null;
+        }
+
+        function adjustAddStockValue(amount) {
+            const inp = document.getElementById('stock-input');
+            let currentVal = parseInt(inp.value) || 0;
+            inp.value = Math.max(0, currentVal + amount);
+        }
+
+        function confirmAddStock() {
+            if (!state.activeAddStockProduct) return;
+
+            const qtyToAdd = parseFloat(document.getElementById('stock-input').value) || 0;
+            if (qtyToAdd <= 0) {
+                showToast('Por favor ingrese una cantidad mayor que 0.', 'warning');
+                return;
+            }
+
+            state.activeAddStockProduct.stock += qtyToAdd;
+            showToast(`Stock actualizado para "${state.activeAddStockProduct.name}".`, 'success');
+            closeAddStockModal();
+            renderInventoryTable();
+        }
+
+        // Delete Product Modal Actions
+        function openDeleteProductModal(productId) {
+            const product = state.products.find(p => p.id === productId);
+            if (!product) return;
+
+            state.activeDeleteProduct = product;
+            document.getElementById('delete-modal-pname').innerText = product.name;
+            document.getElementById('modal-delete-product').classList.remove('hidden');
+        }
+
+        function closeDeleteProductModal() {
+            document.getElementById('modal-delete-product').classList.add('hidden');
+            state.activeDeleteProduct = null;
+        }
+
+        function confirmDeleteProduct() {
+            if (!state.activeDeleteProduct) return;
+
+            state.products = state.products.filter(p => p.id !== state.activeDeleteProduct.id);
+            showToast(`Producto "${state.activeDeleteProduct.name}" eliminado correctamente.`, 'success');
+            closeDeleteProductModal();
+            renderInventoryTable();
+        }
+
+
+        // ------------------ 5. ORDENES PENDIENTES CONTROLLER ------------------
+        function renderPendingOrders() {
+            const grid = document.getElementById('pending-orders-grid');
+            if (!grid) return;
+
+            grid.innerHTML = '';
+
+            if (state.pendingOrders.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-12 flex flex-col items-center justify-center text-on-surface-variant opacity-60">
+                        <span class="material-symbols-outlined text-6xl mb-2">pending_actions</span>
+                        <h3 class="font-headline-md">No hay órdenes pendientes</h3>
+                    </div>
+                `;
+                return;
+            }
+
+            state.pendingOrders.forEach(o => {
+                const card = document.createElement('div');
+                card.className = 'bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-shadow group';
+                
+                let itemsListHtml = '';
+                let total = 0;
+                o.items.forEach(item => {
+                    const sub = item.price * item.quantity;
+                    total += sub;
+                    itemsListHtml += `
+                        <div class="flex justify-between font-body-md text-body-md text-on-surface">
+                            <span>${item.quantity}x ${item.name}</span>
+                            <span class="text-on-surface-variant">$${sub.toFixed(2)}</span>
+                        </div>
+                    `;
+                });
+
+                // Calculate total with 16% IVA included
+                const totalWithIva = total * 1.16;
+
+                card.innerHTML = `
+                    <div class="p-4 border-b border-outline-variant/20 flex justify-between items-start bg-surface-container-low/50">
+                        <div>
+                            <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">${o.location}</span>
+                            <h3 class="font-headline-md text-headline-md text-primary mt-1">#${o.id}</h3>
+                        </div>
+                        <div class="flex flex-col items-end">
+                            <span class="font-label-md text-label-md text-on-surface-variant mt-1">${o.customer}</span>
+                        </div>
+                    </div>
+                    <div class="p-4 flex-grow space-y-3">
+                        <div class="space-y-2">
+                            ${itemsListHtml}
+                        </div>
+                        <div class="pt-3 border-t border-dashed border-outline-variant/50 flex justify-between items-center">
+                            <span class="font-label-lg text-label-lg text-on-surface-variant">Total (con IVA)</span>
+                            <span class="font-headline-md text-headline-md text-primary">$${totalWithIva.toFixed(2)}</span>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-surface-container-high/30 flex gap-3">
+                        <button onclick="concludePendingOrder('${o.id}')" class="flex-grow bg-primary text-on-primary font-label-lg text-label-lg h-12 flex items-center justify-center rounded-lg hover:bg-primary-container transition-all active:scale-95">
+                            CONCLUIR COMPRA
+                        </button>
+                        <button onclick="anularPendingOrder('${o.id}')" class="p-2 border border-error/30 text-error rounded-lg hover:bg-error-container transition-colors active:scale-95" title="Cancelar Orden">
+                            <span class="material-symbols-outlined">delete_outline</span>
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        function concludePendingOrder(orderId) {
+            const order = state.pendingOrders.find(o => o.id === orderId);
+            if (!order) return;
+
+            // Load to cart
+            state.cart = [];
+            order.items.forEach(item => {
+                // Find matching product in state to map id
+                const prod = state.products.find(p => p.name === item.name);
+                state.cart.push({
+                    id: prod ? prod.id : "00",
+                    name: item.name,
+                    price: item.price,
+                    quantity: item.quantity
+                });
+            });
+
+            state.posOrderType = order.location;
+            state.posCustomerName = order.customer;
+            state.posNotes = `Orden pendiente #${orderId} concluida.`;
+
+            // Remove from pending
+            state.pendingOrders = state.pendingOrders.filter(o => o.id !== orderId);
+
+            // Go to POS
+            showTopLevelView('pos');
+            showToast(`Cargando Orden #${orderId} en Punto de Venta para procesar pago.`, 'info');
+        }
+
+        function anularPendingOrder(orderId) {
+            if (confirm(`¿Está seguro de anular y cancelar la comanda pendiente #${orderId}?`)) {
+                state.pendingOrders = state.pendingOrders.filter(o => o.id !== orderId);
+                showToast(`Orden #${orderId} cancelada exitosamente.`, 'warning');
+                renderPendingOrders();
+                updateDashboardStats();
+            }
+        }
+
+
+        // ------------------ 6. ORDENES COMPLETADAS CONTROLLER ------------------
+        function renderCompletedTransactions() {
+            const tbody = document.getElementById('completed-transactions-tbody');
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+
+            state.transactions.forEach(t => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-surface-variant/10 transition-colors group cursor-pointer';
+                tr.onclick = () => {
+                    showToast(`Visualizando transacción ${t.id} - Pagado con ${t.method}.`, 'info');
+                };
+
+                tr.innerHTML = `
+                    <td class="px-6 py-5 font-label-lg text-primary font-bold">${t.id}</td>
+                    <td class="px-6 py-5 font-body-md text-on-surface-variant">${t.time}</td>
+                    <td class="px-6 py-5 font-body-md text-on-surface">${t.customer}</td>
+                    <td class="px-6 py-5 font-headline-md text-on-surface text-right font-bold">$${t.total.toFixed(2)}</td>
+                    <td class="px-6 py-5 text-center">
+                        <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-label-md font-bold inline-flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            Completado
+                        </span>
+                    </td>
+                `;
+
+                tbody.appendChild(tr);
+            });
+        }
+
+
+        // ------------------ 7. AJUSTES CONTROLLER ------------------
+        function renderSettingsPanel() {
+            document.getElementById('set-fullname').value = state.currentUser || 'Miausculo24';
+            document.getElementById('set-email').value = state.settings.email || 'admin@sandoichi.com';
+            document.getElementById('set-branch').value = state.settings.branchName;
+            document.getElementById('set-language').value = state.settings.language;
+            document.getElementById('set-timezone').value = state.settings.timezone;
+
+            // payment checkboxes
+            document.getElementById('pay-method-cash').checked = state.settings.payments.cash;
+            document.getElementById('pay-method-card').checked = state.settings.payments.card;
+            document.getElementById('pay-method-qr').checked = state.settings.payments.qr;
+
+            // Sync visual checkbox states
+            document.querySelectorAll('.toggle-checkbox').forEach(chk => {
+                const label = chk.nextElementSibling;
+                const dot = label.querySelector('.toggle-dot');
+                if (chk.checked) {
+                    label.classList.add('bg-primary');
+                    label.classList.remove('bg-outline-variant/50');
+                    dot.style.transform = 'translateX(100%)';
+                } else {
+                    label.classList.remove('bg-primary');
+                    label.classList.add('bg-outline-variant/50');
+                    dot.style.transform = 'translateX(0)';
+                }
+            });
+
+            renderStaffList();
+        }
+
+        function togglePaymentMethod(methodName) {
+            state.settings.payments[methodName] = document.getElementById(`pay-method-${methodName}`).checked;
+            renderSettingsPanel();
+        }
+
+        function renderStaffList() {
+            const tbody = document.getElementById('settings-staff-tbody');
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+
+            state.settings.staff.forEach((member, idx) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="px-6 py-4">${member.name}</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-surface-container text-on-surface-variant text-xs font-bold rounded">${member.role}</span></td>
+                    <td class="px-6 py-4 text-primary font-medium">${member.status}</td>
+                    <td class="px-6 py-4 text-right">
+                        <button onclick="deleteStaffMember(${idx})" class="text-error hover:underline text-xs mr-3 font-bold">Eliminar</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function deleteStaffMember(idx) {
+            const member = state.settings.staff[idx];
+            if (confirm(`¿Seguro de retirar los permisos a ${member.name}?`)) {
+                state.settings.staff.splice(idx, 1);
+                showToast('Miembro de personal eliminado.', 'warning');
+                renderStaffList();
+            }
+        }
+
+        function showAddStaffPrompt() {
+            const name = prompt('Ingrese el nombre completo del nuevo miembro de personal:');
+            if (name && name.trim()) {
+                const role = prompt('Ingrese el rol (Cajero, Chef, Supervisor):', 'Cajero');
+                if (role && role.trim()) {
+                    state.settings.staff.push({
+                        name: name.trim(),
+                        role: role.trim(),
+                        status: 'Activo'
+                    });
+                    showToast(`Miembro ${name} añadido exitosamente.`, 'success');
+                    renderStaffList();
+                }
+            }
+        }
+
+        function saveGlobalSettings() {
+            const name = document.getElementById('set-fullname').value.trim();
+            const email = document.getElementById('set-email').value.trim();
+            const branch = document.getElementById('set-branch').value.trim();
+            const lang = document.getElementById('set-language').value;
+            const tz = document.getElementById('set-timezone').value;
+
+            state.currentUser = name || 'Miausculo24';
+            state.settings.email = email;
+            state.settings.branchName = branch;
+            state.settings.language = lang;
+            state.settings.timezone = tz;
+
+            // Sync visual profiles
+            const profileNameTexts = document.querySelectorAll('.profile-name-text');
+            profileNameTexts.forEach(t => t.innerText = state.currentUser);
+            document.getElementById('username-display').innerText = state.currentUser;
+
+            showToast('Configuraciones globales guardadas correctamente.', 'success');
+            switchAppShellScreen('menu');
+        }
+
+
+        // ------------------ 8. PUNTO DE VENTA (POS) CART & CONTROLS ------------------
+        function navigateToPOS() {
+            showTopLevelView('pos');
+            // If cart is empty, trigger rendering empty view
+            renderPOSCart();
+        }
+
+        function exitPOSToAppShell(screenId) {
+            showTopLevelView('app-shell');
+            switchAppShellScreen(screenId);
+        }
+
+        function filterPOSSearchProduct() {
+            const searchVal = document.getElementById('pos-product-search').value.toLowerCase().trim();
+            const dropdown = document.getElementById('pos-search-results');
+            
+            if (!searchVal) {
+                dropdown.classList.add('hidden');
+                return;
+            }
+
+            dropdown.innerHTML = '';
+            let matches = 0;
+
+            state.products.forEach(p => {
+                if (p.name.toLowerCase().includes(searchVal)) {
+                    matches++;
+                    const item = document.createElement('div');
+                    item.className = 'p-3 hover:bg-surface-variant cursor-pointer border-b border-outline-variant/10 flex justify-between items-center';
+                    item.onclick = () => {
+                        addProductToCart(p.id);
+                        document.getElementById('pos-product-search').value = '';
+                        dropdown.classList.add('hidden');
+                    };
+                    item.innerHTML = `
+                        <div class="flex flex-col">
+                            <span class="font-bold text-on-surface text-sm">${p.name}</span>
+                            <span class="text-xs text-on-surface-variant">Stock: ${p.stock} • Categoría: ${p.category}</span>
+                        </div>
+                        <span class="text-primary font-bold">$${p.price.toFixed(2)}</span>
+                    `;
+                    dropdown.appendChild(item);
+                }
+            });
+
+            if (matches > 0) {
+                dropdown.classList.remove('hidden');
+            } else {
+                dropdown.classList.add('hidden');
+            }
+        }
+
+        function addProductToCart(productId) {
+            const product = state.products.find(p => p.id === productId);
+            if (!product) return;
+
+            // Check if already in cart
+            const cartItem = state.cart.find(item => item.id === productId);
+            if (cartItem) {
+                cartItem.quantity++;
+            } else {
+                state.cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    quantity: 1
+                });
+            }
+
+            showToast(`"${product.name}" agregado a la orden.`, 'success');
+            renderPOSCart();
+        }
+
+        function renderPOSCart() {
+            const tbody = document.getElementById('pos-cart-tbody');
+            const emptyView = document.getElementById('pos-empty-cart-view');
+
+            if (state.cart.length === 0) {
+                tbody.innerHTML = '';
+                emptyView.classList.remove('hidden');
+                document.getElementById('pos-grand-total').innerText = '$0.00';
+                return;
+            }
+
+            emptyView.classList.add('hidden');
+            tbody.innerHTML = '';
+
+            let subtotalTotal = 0;
+
+            state.cart.forEach(item => {
+                const sub = item.price * item.quantity;
+                subtotalTotal += sub;
+
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-surface-container-low transition-colors group';
+
+                // Add simple details like custom note context for beautiful looks
+                tr.innerHTML = `
+                    <td class="px-8 py-6">
+                        <div class="flex flex-col">
+                            <span class="font-headline-md text-lg text-on-surface">${item.name}</span>
+                            <span class="font-label-md text-label-md text-tertiary flex items-center gap-1 mt-1">
+                                <span class="material-symbols-outlined text-sm">add_circle</span> Extra de la casa
+                            </span>
+                        </div>
+                    </td>
+                    <td class="px-8 py-6 font-body-lg text-on-surface-variant">$${item.price.toFixed(2)}</td>
+                    <td class="px-8 py-6">
+                        <div class="flex items-center gap-4">
+                            <button onclick="adjustCartQty('${item.id}', -1)" class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container border border-outline-variant/40 hover:bg-surface-container-highest transition-colors">
+                                <span class="material-symbols-outlined text-sm">remove</span>
+                            </button>
+                            <span class="font-headline-md text-lg min-w-[20px] text-center">${item.quantity}</span>
+                            <button onclick="adjustCartQty('${item.id}', 1)" class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container border border-outline-variant/40 hover:bg-surface-container-highest transition-colors">
+                                <span class="material-symbols-outlined text-sm">add</span>
+                            </button>
+                        </div>
+                    </td>
+                    <td class="px-8 py-6 font-headline-md text-xl text-right text-primary font-bold">$${sub.toFixed(2)}</td>
+                `;
+
+                tbody.appendChild(tr);
+            });
+
+            // 16% IVA calculation
+            const iva = subtotalTotal * 0.16;
+            const grandTotal = subtotalTotal + iva;
+
+            document.getElementById('pos-grand-total').innerText = `$${grandTotal.toFixed(2)}`;
+
+            // pre-sync dropdown status selection
+            document.getElementById('pos-order-type').value = state.posOrderType;
+            document.getElementById('pos-customer-name').value = state.posCustomerName;
+            document.getElementById('pos-notes-input').value = state.posNotes;
+        }
+
+        function adjustCartQty(itemId, amount) {
+            const item = state.cart.find(c => c.id === itemId);
+            if (!item) return;
+
+            item.quantity += amount;
+            if (item.quantity <= 0) {
+                // remove from cart
+                state.cart = state.cart.filter(c => c.id !== itemId);
+                showToast('Producto removido del carrito.', 'warning');
+            }
+
+            renderPOSCart();
+        }
+
+        function anularOrdenPOS() {
+            if (state.cart.length === 0) {
+                showToast('El carrito ya está vacío.', 'warning');
+                return;
+            }
+
+            if (confirm('¿Está seguro de anular la orden de venta actual? Todos los artículos se borrarán.')) {
+                state.cart = [];
+                state.posOrderType = "Para llevar";
+                state.posCustomerName = "Mostrador";
+                state.posNotes = "";
+                showToast('Orden anulada.', 'warning');
+                renderPOSCart();
+            }
+        }
+
+
+        // ------------------ 9. PAGO EXACTO CONTROLLER ------------------
+        function processPOSPagoExacto() {
+            if (state.cart.length === 0) {
+                showToast('Su carrito está vacío. Agregue productos antes de cobrar.', 'warning');
+                return;
+            }
+
+            // Calculate total
+            const sub = state.cart.reduce((acc, c) => acc + (c.price * c.quantity), 0);
+            const total = sub * 1.16;
+
+            // Generate Tx ID
+            const txId = `TX-${Math.floor(10000 + Math.random() * 90000)}`;
+            const method = state.settings.payments.card ? 'Tarjeta' : 'Efectivo';
+
+            // Log Transaction
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            
+            const newTx = {
+                id: txId,
+                time: timeStr,
+                customer: state.posCustomerName || 'Mostrador',
+                total: total,
+                method: method
+            };
+
+            state.transactions.unshift(newTx);
+
+            // Deduct Stock
+            state.cart.forEach(item => {
+                const prod = state.products.find(p => p.id === item.id);
+                if (prod) {
+                    prod.stock = Math.max(0, prod.stock - item.quantity);
+                }
+            });
+
+            // Transition to Ticket view
+            switchPOSScreen('ticket');
+
+            document.getElementById('ticket-success-sub').innerText = `La transacción ${txId} por un total de $${total.toFixed(2)} se completó exitosamente.`;
+            
+            // Render ticket receipt side details
+            document.getElementById('pos-empty-cart-view').classList.add('hidden');
+            
+            showToast('Pago exacto procesado con éxito.', 'success');
+        }
+
+
+        // ------------------ 10. MULTIPAGO CONTROLLER ------------------
+        function renderMultipagoScreen() {
+            // Set order lists summaries
+            const listContainer = document.getElementById('multipago-summary-list');
+            listContainer.innerHTML = '';
+
+            let subtotal = 0;
+            state.cart.forEach(item => {
+                const itemSub = item.price * item.quantity;
+                subtotal += itemSub;
+
+                const div = document.createElement('div');
+                div.className = 'flex justify-between items-center py-2 border-b border-outline/10';
+                div.innerHTML = `
+                    <div class="flex flex-col">
+                        <span class="font-label-lg text-label-lg">${item.name}</span>
+                        <span class="text-xs text-on-surface-variant">x${item.quantity} piezas</span>
+                    </div>
+                    <span class="font-label-lg text-label-lg">$${itemSub.toFixed(2)}</span>
+                `;
+                listContainer.appendChild(div);
+            });
+
+            const iva = subtotal * 0.16;
+            const total = subtotal + iva;
+
+            document.getElementById('multipago-subtotal-val').innerText = `$${subtotal.toFixed(2)}`;
+            document.getElementById('multipago-iva-val').innerText = `$${iva.toFixed(2)}`;
+            document.getElementById('multipago-total-val').innerText = `$${total.toFixed(2)}`;
+
+            // Reset payment amount
+            state.multipago.received = 0;
+            state.multipago.method = "Efectivo";
+            document.getElementById('multipago-custom-amount').value = '';
+            
+            // Sync payment methods button active/disable state from system settings
+            const cardBtn = document.getElementById('multipago-card-btn');
+            if (!state.settings.payments.card) {
+                cardBtn.classList.add('opacity-30', 'cursor-not-allowed');
+                cardBtn.disabled = true;
+            } else {
+                cardBtn.classList.remove('opacity-30', 'cursor-not-allowed');
+                cardBtn.disabled = false;
+            }
+
+            updateMultipagoDisplay(total);
+        }
+
+        function handleMultipagoCashBtn(amount) {
+            state.multipago.received = amount;
+            state.multipago.method = "Efectivo";
+            document.getElementById('multipago-custom-amount').value = '';
+            
+            // Recalculate
+            const sub = state.cart.reduce((acc, c) => acc + (c.price * c.quantity), 0);
+            updateMultipagoDisplay(sub * 1.16);
+        }
+
+        function handleMultipagoCustomInput(val) {
+            const amount = parseFloat(val) || 0;
+            state.multipago.received = amount;
+            
+            const sub = state.cart.reduce((acc, c) => acc + (c.price * c.quantity), 0);
+            updateMultipagoDisplay(sub * 1.16);
+        }
+
+        function handleMultipagoMethodToggle(method) {
+            state.multipago.method = method;
+            if (method === 'Tarjeta') {
+                // If tarjeta, received amount is usually exactly total (no change)
+                const sub = state.cart.reduce((acc, c) => acc + (c.price * c.quantity), 0);
+                const total = sub * 1.16;
+                state.multipago.received = total;
+                document.getElementById('multipago-custom-amount').value = total.toFixed(2);
+                updateMultipagoDisplay(total);
+            }
+        }
+
+        function updateMultipagoDisplay(total) {
+            const received = state.multipago.received;
+            const change = Math.max(0, received - total);
+
+            document.getElementById('multipago-received-display').innerText = `$${received.toFixed(2)}`;
+            document.getElementById('multipago-change-display').innerText = `$${change.toFixed(2)}`;
+
+            const changeBox = document.getElementById('multipago-change-box');
+            if (received >= total && total > 0) {
+                changeBox.classList.add('ring-4', 'ring-secondary-container');
+            } else {
+                changeBox.classList.remove('ring-4', 'ring-secondary-container');
+            }
+        }
+
+        function confirmMultipagoSubmit() {
+            const sub = state.cart.reduce((acc, c) => acc + (c.price * c.quantity), 0);
+            const total = sub * 1.16;
+
+            if (state.multipago.received < total) {
+                showToast(`Monto recibido ($${state.multipago.received.toFixed(2)}) es insuficiente para cubrir el total ($${total.toFixed(2)}).`, 'error');
+                return;
+            }
+
+            const change = state.multipago.received - total;
+
+            // Log Transaction
+            const txId = `TX-${Math.floor(10000 + Math.random() * 90000)}`;
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            
+            const newTx = {
+                id: txId,
+                time: timeStr,
+                customer: state.posCustomerName || 'Mostrador',
+                total: total,
+                method: state.multipago.method
+            };
+
+            state.transactions.unshift(newTx);
+
+            // Deduct inventory stock
+            state.cart.forEach(item => {
+                const prod = state.products.find(p => p.id === item.id);
+                if (prod) {
+                    prod.stock = Math.max(0, prod.stock - item.quantity);
+                }
+            });
+
+            // Transition to ticket
+            switchPOSScreen('ticket');
+            document.getElementById('ticket-success-sub').innerText = `Transacción ${txId} por total de $${total.toFixed(2)} completada. Cambio entregado: $${change.toFixed(2)}`;
+            showToast('Multipago procesado con éxito.', 'success');
+        }
+
+        function startNewPOSSale() {
+            state.cart = [];
+            state.posOrderType = "Para llevar";
+            state.posCustomerName = "Mostrador";
+            state.posNotes = "";
+            switchPOSScreen('pos');
+        }
+
+
+        // ------------------ 11. CORTE DE CAJA MODAL CONTROLLER ------------------
+        function openCorteCajaModal() {
+            // Calculate dynamic values
+            let cashTotal = 0;
+            let cardTotal = 0;
+            let qrTotal = 0;
+
+            state.transactions.forEach(t => {
+                if (t.method === 'Efectivo') {
+                    cashTotal += t.total;
+                } else if (t.method === 'Tarjeta') {
+                    cardTotal += t.total;
+                } else {
+                    qrTotal += t.total;
+                }
+            });
+
+            const salesTotal = cashTotal + cardTotal + qrTotal;
+            const initialDrawer = 5000.00;
+            const expectedCash = initialDrawer + cashTotal;
+
+            document.getElementById('corte-sales-cash').innerText = `$${cashTotal.toFixed(2)}`;
+            document.getElementById('corte-sales-card').innerText = `$${cardTotal.toFixed(2)}`;
+            document.getElementById('corte-sales-qr').innerText = `$${qrTotal.toFixed(2)}`;
+            document.getElementById('corte-sales-total').innerText = `$${salesTotal.toFixed(2)}`;
+            document.getElementById('corte-expected-cash').innerText = `$${expectedCash.toFixed(2)}`;
+
+            // Prefill Counted Cash with Expected Cash
+            document.getElementById('corte-counted-input').value = expectedCash.toFixed(2);
+            calculateCorteDiferencia(expectedCash);
+
+            document.getElementById('modal-corte-caja').classList.remove('hidden');
+        }
+
+        function closeCorteCajaModal() {
+            document.getElementById('modal-corte-caja').classList.add('hidden');
+        }
+
+        function calculateCorteDiferencia(countedVal) {
+            const counted = parseFloat(countedVal) || 0;
+            
+            // Re-fetch expected cash values
+            let cashTotal = 0;
+            state.transactions.forEach(t => {
+                if (t.method === 'Efectivo') cashTotal += t.total;
+            });
+            const expectedCash = 5000.00 + cashTotal;
+            const diff = counted - expectedCash;
+
+            const diffDisplay = document.getElementById('corte-difference');
+            diffDisplay.innerText = `$${diff.toFixed(2)}`;
+
+            if (diff === 0) {
+                diffDisplay.className = 'text-headline-md font-bold text-primary';
+                diffDisplay.parentElement.className = 'bg-surface-container h-16 flex flex-col justify-center px-4 rounded-lg border-l-4 border-primary';
+            } else {
+                diffDisplay.className = 'text-headline-md font-bold text-error';
+                diffDisplay.parentElement.className = 'bg-error-container h-16 flex flex-col justify-center px-4 rounded-lg border-l-4 border-error';
+            }
+        }
+
+        function confirmCorteCajaSubmit() {
+            // Close Corte modal
+            closeCorteCajaModal();
+            // Open Logout Confirmation modal
+            openLogoutModal();
+            showToast('Corte de caja registrado en memoria local del navegador.', 'success');
+        }
+
+
+        // ------------------ 12. LOGOUT MODAL CONTROLLER ------------------
+        function openLogoutModal() {
+            document.getElementById('modal-logout').classList.remove('hidden');
+        }
+
+        function closeLogoutModal() {
+            document.getElementById('modal-logout').classList.add('hidden');
+        }
+
+        function confirmLogout() {
+            // Clean active states
+            state.currentUser = null;
+            state.cart = [];
+
+            // Close modal
+            closeLogoutModal();
+
+            // Transition to Login
+            showTopLevelView('login');
+            showToast('Sesión cerrada correctamente. Vuelva pronto.', 'info');
+        }
+    </script>
+</body>
+</html>

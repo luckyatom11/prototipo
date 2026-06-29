@@ -1,0 +1,363 @@
+<!DOCTYPE html><html class="light" lang="es" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .modal-blur {
+            backdrop-filter: blur(4px);
+            background-color: rgba(27, 29, 14, 0.4);
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#fbffe4",
+                    "background": "#fbfbe2",
+                    "surface-tint": "#54651e",
+                    "secondary-container": "#fec72c",
+                    "surface": "#fbfbe2",
+                    "on-secondary-container": "#6f5400",
+                    "surface-container-high": "#eaead1",
+                    "surface-container-low": "#f5f5dc",
+                    "secondary-fixed-dim": "#f5bf22",
+                    "on-tertiary-fixed": "#2d1604",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "inverse-primary": "#bbcf7c",
+                    "on-tertiary-fixed-variant": "#5f402a",
+                    "on-background": "#1b1d0e",
+                    "tertiary-fixed-dim": "#eabda0",
+                    "surface-container-lowest": "#ffffff",
+                    "outline": "#767869",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#e4e4cc",
+                    "surface-bright": "#fbfbe2",
+                    "on-tertiary-container": "#fffbff",
+                    "tertiary-container": "#926d54",
+                    "on-secondary-fixed-variant": "#5a4300",
+                    "error": "#ba1a1a",
+                    "primary-fixed-dim": "#bbcf7c",
+                    "tertiary-fixed": "#ffdcc6",
+                    "on-primary-fixed-variant": "#3d4c05",
+                    "on-error-container": "#93000a",
+                    "inverse-surface": "#303221",
+                    "primary-container": "#6a7c32",
+                    "error-container": "#ffdad6",
+                    "secondary": "#775a00",
+                    "primary": "#52621c",
+                    "inverse-on-surface": "#f2f2d9",
+                    "on-secondary-fixed": "#251a00",
+                    "primary-fixed": "#d7ec95",
+                    "surface-container": "#efefd7",
+                    "on-primary-fixed": "#161e00",
+                    "surface-dim": "#dbdcc3",
+                    "on-surface": "#1b1d0e",
+                    "surface-container-highest": "#e4e4cc",
+                    "on-surface-variant": "#46483b",
+                    "outline-variant": "#c6c8b6",
+                    "tertiary": "#76553d",
+                    "secondary-fixed": "#ffdf98"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "margin-mobile": "16px",
+                    "container-padding": "20px",
+                    "margin-desktop": "24px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "label-md": ["Work Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Work Sans"],
+                    "headline-md-mobile": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Work Sans"],
+                    "body-lg": ["Work Sans"]
+            },
+            "fontSize": {
+                    "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-hidden">
+<div class="flex h-screen w-full relative">
+<!-- Side Navigation Bar (The Anchor) -->
+<aside class="flex flex-col h-full border-r border-outline-variant/20 h-full w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-container-lowest pt-16 z-40">
+<div class="p-6 flex flex-col items-center border-b border-outline-variant/10">
+<div class="w-16 h-16 rounded-full bg-primary-fixed-dim flex items-center justify-center mb-3 border-2 border-primary/20">
+<span class="material-symbols-outlined text-primary scale-125" style="font-variation-settings: &quot;FILL&quot; 1;">person</span>
+</div>
+<h3 class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary">Sandoichi POS</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Sucursal Central</p>
+</div>
+<nav class="flex-1 py-4 overflow-y-auto custom-scrollbar px-3 space-y-1">
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 active:bg-surface-variant transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+<span class="font-label-md text-label-md">Nueva Orden</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 active:bg-surface-variant transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">pending_actions</span>
+<span class="">Pendientes</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 active:bg-surface-variant transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">check_circle</span>
+<span class="">Completados</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 bg-secondary-container text-on-secondary-container font-bold rounded-none active:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="">Caja</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 active:bg-surface-variant transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="">Ayuda</span>
+</a>
+</nav>
+<div class="mt-auto mb-2 px-3 border-t border-outline-variant/10 pt-2"><button class="flex w-full items-center gap-4 px-4 py-3 text-error hover:bg-error-container/20 active:bg-error-container/40 transition-all font-label-md text-label-md rounded-lg mb-2">
+<span class="material-symbols-outlined">logout</span>
+<span class="">Cerrar Sesión</span>
+</button>
+<div class="p-4 bg-surface-container-high/50 border-t border-outline-variant/10">
+<div class="flex items-center justify-between text-label-md text-on-surface-variant">
+<span class="">Estado del Sistema</span>
+<span class="w-2 h-2 rounded-full bg-green-600 animate-pulse"></span>
+</div>
+<p class="text-[10px] text-on-surface-variant/60 uppercase tracking-widest text-center mt-2">v2.4.0 Online</p>
+</div></div>
+</aside>
+<!-- Main Dashboard Content (Background Template from Screen 56) -->
+<main class="ml-64 mt-16 p-margin-desktop h-[calc(100vh-64px)] overflow-y-auto custom-scrollbar">
+<div class="max-w-6xl mx-auto space-y-8">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary">¡Bienvenido de nuevo!</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Lunes, 24 de Mayo • 08:30 AM</p>
+</div>
+<div class="flex gap-4">
+<div class="bg-surface-container p-4 border border-outline-variant/30 rounded-lg flex items-center gap-4 min-w-[200px]">
+<div class="w-10 h-10 rounded-lg bg-primary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container">trending_up</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Ventas de hoy</p>
+<p class="font-headline-md text-headline-md text-on-surface">$0.00</p>
+</div>
+</div>
+<div class="bg-surface-container p-4 border border-outline-variant/30 rounded-lg flex items-center gap-4 min-w-[200px]">
+<div class="w-10 h-10 rounded-lg bg-secondary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">pending</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Pedidos pendientes</p>
+<p class="font-headline-md text-headline-md text-on-surface">0</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State Graphic Canvas -->
+<div class="relative rounded-xl overflow-hidden min-h-[500px] flex flex-col items-center p-12 group">
+<!-- Subtle background decorative elements -->
+<!-- Mascot Container -->
+<div class="w-full max-w-4xl bg-surface-container-low rounded-xl border border-outline-variant/20 p-6 space-y-6">
+<!-- Search Bar -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface border-2 border-outline-variant rounded-xl font-body-lg focus:ring-2 focus:ring-primary outline-none transition-all" placeholder="Buscar productos..." type="text">
+</div>
+<!-- Product List -->
+<div class="space-y-2">
+<div class="flex items-center justify-between p-4 bg-surface rounded-lg border border-outline-variant/10 hover:bg-surface-variant/30 transition-colors cursor-pointer">
+<span class="font-headline-md text-on-surface">Naranjoso Michi</span>
+<input checked="" class="w-6 h-6 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+</div>
+<div class="flex items-center justify-between p-4 bg-surface rounded-lg border border-outline-variant/10 hover:bg-surface-variant/30 transition-colors cursor-pointer">
+<span class="font-headline-md text-on-surface">Michi Vulcano</span>
+<input checked="" class="w-6 h-6 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+</div>
+<div class="flex items-center justify-between p-4 bg-surface rounded-lg border border-outline-variant/10 hover:bg-surface-variant/30 transition-colors cursor-pointer">
+<span class="font-headline-md text-on-surface">Epic Chanwis</span>
+<input checked="" class="w-6 h-6 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+</div>
+<div class="flex items-center justify-between p-4 bg-surface rounded-lg border border-outline-variant/10 hover:bg-surface-variant/30 transition-colors cursor-pointer">
+<span class="font-headline-md text-on-surface">Special Michi</span>
+<input checked="" class="w-6 h-6 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+</div>
+<div class="flex items-center justify-between p-4 bg-surface rounded-lg border border-outline-variant/10 hover:bg-surface-variant/30 transition-colors cursor-pointer">
+<span class="font-headline-md text-on-surface">Supreme Michi</span>
+<input checked="" class="w-6 h-6 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+</div>
+</div>
+<!-- Action Button -->
+<div class="flex justify-end pt-4">
+<button class="bg-primary text-surface px-8 py-3 rounded-full font-headline-md hover:bg-primary/90 transition-all active:scale-95 shadow-lg">GENERAR PEDIDO</button>
+</div>
+</div>
+<!-- Bottom stats bar (Empty) -->
+<div class="mt-16 w-full max-w-4xl grid grid-cols-1 gap-6 pt-12 border-t border-outline-variant/10"><div class="text-center col-span-full">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-1">Cajero de Turno</p>
+<p class="font-body-md text-body-md font-semibold text-on-surface">Admin Principal</p>
+</div></div>
+</div>
+<!-- Secondary Actions Bento -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+</div>
+</div>
+<div class="absolute inset-0 z-[60] modal-blur flex items-center justify-center p-margin-mobile">
+<div class="bg-surface border border-outline-variant w-full max-w-md shadow-2xl overflow-hidden flex flex-col rounded-xl">
+<div class="p-8 flex flex-col items-center text-center space-y-6">
+<div class="w-16 h-16 bg-error-container text-error rounded-full flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-4xl">logout</span>
+</div>
+<div class="space-y-2">
+<h2 class="font-headline-md text-headline-md text-on-surface">¿Cerrar Sesión?</h2>
+<p class="font-body-md text-on-surface-variant px-4">
+                    Asegùrate de haber guardado todos los cambios y realizado el corte de caja si es necesario.
+                </p>
+</div>
+<div class="flex flex-col w-full gap-3">
+<button class="w-full py-3.5 bg-error text-on-error font-label-lg hover:opacity-90 transition-all uppercase tracking-widest rounded-xl shadow-lg">
+                    Cerrar Sesión
+                </button>
+<button class="w-full py-3.5 border-2 border-outline-variant text-on-surface-variant font-label-lg hover:bg-surface-container transition-colors uppercase tracking-widest rounded-xl">
+                    Cancelar
+                </button>
+</div>
+</div>
+</div>
+</div></main>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 modal-blur z-50 flex items-center justify-center p-4">
+<!-- Modal Box -->
+<div class="bg-surface-container-lowest w-full max-w-2xl border border-outline shadow-2xl rounded-DEFAULT flex flex-col overflow-hidden animate-in fade-in zoom-in duration-300">
+<!-- Modal Header -->
+<div class="p-6 border-b border-outline-variant/20 bg-surface-container-low">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary-container text-on-primary-container flex items-center justify-center rounded-DEFAULT">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+</div>
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Corte de Caja</h2>
+</div>
+</div>
+</div>
+<!-- Modal Body -->
+<div class="p-8 space-y-8 max-h-[70vh] overflow-y-auto">
+<div class="grid grid-cols-2 gap-10">
+<!-- Left Col: Ventas -->
+<div>
+<h3 class="font-label-lg text-label-lg text-primary border-b border-primary/20 pb-2 mb-4">RESUMEN DE VENTAS</h3>
+<div class="space-y-3">
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-body-md text-body-md">Efectivo</span>
+<span class="font-label-lg text-label-lg text-on-surface">$24,500.00</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-body-md text-body-md">Tarjeta</span>
+<span class="font-label-lg text-label-lg text-on-surface">$12,350.00</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-body-md text-body-md">QR / Transferencia</span>
+<span class="font-label-lg text-label-lg text-on-surface">$4,120.00</span>
+</div>
+<div class="pt-3 border-t border-dashed border-outline-variant flex justify-between items-center">
+<span class="font-label-lg text-label-lg text-on-surface">Ventas Totales</span>
+<span class="font-headline-md text-headline-md text-primary">$40,970.00</span>
+</div>
+</div>
+</div>
+<!-- Right Col: Fondo -->
+<div>
+<h3 class="font-label-lg text-label-lg text-tertiary border-b border-tertiary/20 pb-2 mb-4">FONDO DE CAJA</h3>
+<div class="space-y-3">
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-body-md text-body-md">Fondo Inicial</span>
+<span class="font-label-lg text-label-lg text-on-surface">$5,000.00</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-body-md text-body-md">Efectivo Esperado</span>
+<span class="font-label-lg text-label-lg text-on-surface font-bold">$29,500.00</span>
+</div>
+<p class="text-[10px] text-on-surface-variant italic leading-tight mt-4">
+                                    * Efectivo Esperado = Fondo Inicial + Ventas en Efectivo.
+                                </p>
+</div>
+</div>
+</div>
+<!-- Input Section -->
+<div class="grid grid-cols-12 gap-6 items-end">
+<div class="col-span-7">
+<label class="font-label-md text-label-md text-on-surface-variant mb-2 block uppercase tracking-wider">Efectivo Contado (Fondo + Ventas)</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-headline-md">$</span>
+<input class="w-full bg-surface-container-low border-2 border-outline-variant focus:border-primary focus:ring-0 rounded-DEFAULT h-16 pl-10 text-headline-md text-on-surface font-bold" step="0.01" type="number" value="29500.00">
+</div>
+</div>
+<div class="col-span-5">
+<div class="bg-surface-container h-16 flex flex-col justify-center px-4 rounded-DEFAULT border-l-4 border-primary">
+<span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">Diferencia</span>
+<span class="text-headline-md font-bold text-primary">$0.00</span>
+</div>
+</div>
+</div>
+<!-- Textarea -->
+<div>
+<label class="font-label-md text-label-md text-on-surface-variant mb-2 block uppercase tracking-wider">Observaciones del Cierre</label>
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant focus:border-primary focus:ring-0 rounded-DEFAULT h-24 p-4 text-body-md" placeholder="Notas sobre faltantes, propinas o incidencias..."></textarea>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="p-6 bg-surface-container-high flex justify-end gap-4 border-t border-outline-variant/20">
+<button class="px-8 py-4 font-label-lg text-label-lg text-secondary border border-secondary hover:bg-secondary/5 transition-colors rounded-DEFAULT uppercase tracking-wider">
+                        CANCELAR
+                    </button>
+<button class="px-8 py-4 font-label-lg text-label-lg bg-primary text-on-primary hover:opacity-90 transition-opacity rounded-DEFAULT shadow-lg uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">lock_person</span>
+                        CONFIRMAR CORTE Y CERRAR SESIÓN
+                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Micro-interaction script -->
+<script>
+        document.querySelectorAll('button, a').forEach(elem => {
+            elem.addEventListener('mousedown', () => {
+                elem.style.transform = 'scale(0.98)';
+                elem.style.transition = 'transform 0.1s';
+            });
+            elem.addEventListener('mouseup', () => {
+                elem.style.transform = 'scale(1)';
+            });
+            elem.addEventListener('mouseleave', () => {
+                elem.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

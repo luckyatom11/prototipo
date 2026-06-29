@@ -1,0 +1,396 @@
+<!DOCTYPE html><html class="light" lang="es" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-container": "#6f5400",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#f5f5dc",
+                    "on-error-container": "#93000a",
+                    "on-background": "#1b1d0e",
+                    "on-surface": "#1b1d0e",
+                    "on-primary-fixed-variant": "#3d4c05",
+                    "tertiary-container": "#926d54",
+                    "tertiary-fixed": "#ffdcc6",
+                    "secondary": "#775a00",
+                    "on-secondary-fixed-variant": "#5a4300",
+                    "error": "#ba1a1a",
+                    "surface-container-highest": "#e4e4cc",
+                    "primary-fixed": "#d7ec95",
+                    "inverse-surface": "#303221",
+                    "surface-container-high": "#eaead1",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface": "#fbfbe2",
+                    "secondary-fixed-dim": "#f5bf22",
+                    "on-tertiary": "#ffffff",
+                    "background": "#fbfbe2",
+                    "surface-tint": "#54651e",
+                    "surface-bright": "#fbfbe2",
+                    "on-primary-fixed": "#161e00",
+                    "outline-variant": "#c6c8b6",
+                    "surface-container": "#efefd7",
+                    "primary-fixed-dim": "#bbcf7c",
+                    "secondary-container": "#fec72c",
+                    "surface-dim": "#dbdcc3",
+                    "on-surface-variant": "#46483b",
+                    "on-tertiary-fixed-variant": "#5f402a",
+                    "inverse-primary": "#bbcf7c",
+                    "on-tertiary-container": "#fffbff",
+                    "inverse-on-surface": "#f2f2d9",
+                    "secondary-fixed": "#ffdf98",
+                    "on-secondary": "#ffffff",
+                    "primary-container": "#6a7c32",
+                    "primary": "#52621c",
+                    "on-secondary-fixed": "#251a00",
+                    "tertiary-fixed-dim": "#eabda0",
+                    "outline": "#767869",
+                    "tertiary": "#76553d",
+                    "on-primary-container": "#fbffe4",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-variant": "#e4e4cc",
+                    "on-tertiary-fixed": "#2d1604"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "margin-desktop": "24px",
+                    "container-padding": "20px",
+                    "gutter": "16px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Work Sans"],
+                    "label-md": ["Work Sans"],
+                    "headline-md-mobile": ["Plus Jakarta Sans"],
+                    "body-md": ["Work Sans"],
+                    "body-lg": ["Work Sans"]
+            },
+            "fontSize": {
+                    "display-lg": ["40px", {"lineHeight": "48px", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-border {
+            border-bottom: 2px solid #52621c;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fbfbe2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c6c8b6;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 bg-surface border-b border-outline-variant/20">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3">
+<img alt="Sandoichi Logo" class="h-10 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRtw-w_HtrdzRtEXjKsXfL-MijFXQPBTRrHu03quI-OA_laVchA6gvKRE_E6oPc9P0ZfXOrX5arZ4xZoPJvexfAcN8HDnb8K-K-Ma6UbuJntKl97JN3naFFz58p4QwF5WXXUBx1J7nQz0NB0CvjVPIl7kum6coAGnwqxpCrHsOKJhiQFu-Sw8Q5EVDOatlbY3zTn36K8OrwfhOTOA4BbUyOFN-Y3AVpLST7K5cS95MPTlk7qIIiAAPut3d13gZxO-JNIWxzhZ_wVnI">
+<span class="font-display-lg text-display-lg text-primary tracking-tight">Sandoichi</span>
+</div>
+<nav class="hidden md:flex items-center gap-6 ml-8">
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high transition-colors px-2 py-1 flex items-center gap-2" href="#"><span class="material-symbols-outlined" style="font-size: 20px;">point_of_sale</span>Ventas</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high transition-colors px-2 py-1 flex items-center gap-2" href="#"><span class="material-symbols-outlined" style="font-size: 20px;">inventory_2</span>Inventario</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high transition-colors px-2 py-1 flex items-center gap-2" href="#"><span class="material-symbols-outlined" style="font-size: 20px;">bar_chart</span>Reportes</a>
+</nav>
+</div>
+<div class="flex-1 max-w-md px-8">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant/50 rounded-lg pl-10 pr-4 py-2 text-label-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Buscar orden o cliente..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary p-2 hover:bg-surface-container-high transition-colors rounded-full cursor-pointer active:opacity-80">settings</button>
+
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex flex-col py-4 bg-surface-container-low border-r border-outline-variant/20 z-40">
+<div class="p-6 flex flex-col items-center border-b border-outline-variant/10">
+<div class="w-16 h-16 rounded-full bg-primary-fixed-dim flex items-center justify-center mb-3 border-2 border-primary/20">
+<span class="material-symbols-outlined text-primary scale-125" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<h3 class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary">Sandoichi POS</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Sucursal Central</p>
+</div>
+<nav class="flex flex-col gap-1 px-2">
+<a class="flex items-center gap-3 px-4 py-3 font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-all active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+                Nueva Orden
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 font-label-md text-label-md rounded-lg transition-all active:scale-95 duration-150 bg-secondary-container text-on-secondary-container" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">pending_actions</span>
+                Pendientes
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-all active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">check_circle</span>
+                Completados
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-all active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">point_of_sale</span>
+                Caja
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-all active:scale-95 duration-150 mt-auto" href="#">
+<span class="material-symbols-outlined">help</span>
+                Ayuda
+            </a>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 mt-16 p-margin-desktop pb-32">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Órdenes Pendientes</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Gestiona las comandas actuales y procesa los pagos.</p>
+</div>
+<div class="flex gap-4">
+
+</div>
+</div>
+<!-- Orders Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-shadow group">
+<div class="p-4 border-b border-outline-variant/20 flex justify-between items-start bg-surface-container-low/50">
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Mesa 04</span>
+<h3 class="font-headline-md text-headline-md text-primary mt-1">#1234</h3>
+</div>
+<div class="flex flex-col items-end">
+
+<span class="font-label-md text-label-md text-on-surface-variant mt-1">S. Ramirez</span>
+</div>
+</div>
+<div class="p-4 flex-1 space-y-3">
+<div class="space-y-2">
+<div class="flex justify-between font-body-md text-body-md text-on-surface">
+<span class="">1x Sando Katsu</span>
+<span class="text-on-surface-variant">$12.50</span>
+</div>
+<div class="flex justify-between font-body-md text-body-md text-on-surface">
+<span class="">2x Té Matcha Caliente</span>
+<span class="text-on-surface-variant">$9.00</span>
+</div>
+<div class="flex justify-between font-body-md text-body-md text-on-surface">
+<span class="">1x Cheesecake Japonés</span>
+<span class="text-on-surface-variant">$6.50</span>
+</div>
+</div>
+<div class="pt-3 border-t border-dashed border-outline-variant/50 flex justify-between items-center">
+<span class="font-label-lg text-label-lg text-on-surface-variant">Total</span>
+<span class="font-headline-md text-headline-md text-primary">$28.00</span>
+</div>
+</div>
+<div class="p-4 bg-surface-container-high/30 flex gap-3">
+<button class="flex-1 bg-primary text-on-primary font-label-lg text-label-lg h-12 flex items-center justify-center rounded-lg hover:bg-primary-container transition-colors active:scale-95" style="transform: scale(1);">
+                        CONCLUIR COMPRA
+                    </button>
+<button class="p-2 border border-outline text-on-surface-variant rounded-lg hover:bg-surface-container-highest transition-colors active:scale-95" title="Editar">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-2 border border-error/30 text-error rounded-lg hover:bg-error-container transition-colors active:scale-95" title="Cancelar">
+<span class="material-symbols-outlined">delete_outline</span>
+</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-shadow group">
+<div class="p-4 border-b border-outline-variant/20 flex justify-between items-start bg-surface-container-low/50">
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Para Llevar</span>
+<h3 class="font-headline-md text-headline-md text-primary mt-1">#1235</h3>
+</div>
+<div class="flex flex-col items-end">
+
+<span class="font-label-md text-label-md text-on-surface-variant mt-1">M. Tanaka</span>
+</div>
+</div>
+<div class="p-4 flex-1 space-y-3">
+<div class="space-y-2">
+<div class="flex justify-between font-body-md text-body-md text-on-surface">
+<span class="">2x Tamago Sando</span>
+<span class="text-on-surface-variant">$18.00</span>
+</div>
+<div class="flex justify-between font-body-md text-body-md text-on-surface">
+<span class="">1x Onigiri Salmón</span>
+<span class="text-on-surface-variant">$4.50</span>
+</div>
+</div>
+<div class="pt-3 border-t border-dashed border-outline-variant/50 flex justify-between items-center">
+<span class="font-label-lg text-label-lg text-on-surface-variant">Total</span>
+<span class="font-headline-md text-headline-md text-primary">$22.50</span>
+</div>
+</div>
+<div class="p-4 bg-surface-container-high/30 flex gap-3">
+<button class="flex-1 bg-primary text-on-primary font-label-lg text-label-lg h-12 flex items-center justify-center rounded-lg hover:bg-primary-container transition-colors active:scale-95" style="transform: scale(1);">
+                        CONCLUIR COMPRA
+                    </button>
+<button class="p-2 border border-outline text-on-surface-variant rounded-lg hover:bg-surface-container-highest transition-colors active:scale-95" style="transform: scale(1);">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-2 border border-error/30 text-error rounded-lg hover:bg-error-container transition-colors active:scale-95">
+<span class="material-symbols-outlined">delete_outline</span>
+</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-shadow group">
+<div class="p-4 border-b border-outline-variant/20 flex justify-between items-start bg-surface-container-low/50">
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Mesa 12</span>
+<h3 class="font-headline-md text-headline-md text-primary mt-1">#1236</h3>
+</div>
+<div class="flex flex-col items-end">
+
+<span class="font-label-md text-label-md text-on-surface-variant mt-1">J. Doe</span>
+</div>
+</div>
+<div class="p-4 flex-1 space-y-3">
+<div class="space-y-2">
+<div class="flex justify-between font-body-md text-body-md text-on-surface">
+<span class="">1x Ebi Fry Sando</span>
+<span class="text-on-surface-variant">$14.00</span>
+</div>
+<div class="flex justify-between font-body-md text-body-md text-on-surface">
+<span class="">1x Ramune Fresa</span>
+<span class="text-on-surface-variant">$4.00</span>
+</div>
+</div>
+<div class="pt-3 border-t border-dashed border-outline-variant/50 flex justify-between items-center">
+<span class="font-label-lg text-label-lg text-on-surface-variant">Total</span>
+<span class="font-headline-md text-headline-md text-primary">$18.00</span>
+</div>
+</div>
+<div class="p-4 bg-surface-container-high/30 flex gap-3">
+<button class="flex-1 bg-primary text-on-primary font-label-lg text-label-lg h-12 flex items-center justify-center rounded-lg hover:bg-primary-container transition-colors active:scale-95" style="transform: scale(1);">
+                        CONCLUIR COMPRA
+                    </button>
+<button class="p-2 border border-outline text-on-surface-variant rounded-lg hover:bg-surface-container-highest transition-colors active:scale-95">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-2 border border-error/30 text-error rounded-lg hover:bg-error-container transition-colors active:scale-95">
+<span class="material-symbols-outlined">delete_outline</span>
+</button>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-shadow group">
+<div class="p-4 border-b border-outline-variant/20 flex justify-between items-start bg-surface-container-low/50">
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Mesa 01</span>
+<h3 class="font-headline-md text-headline-md text-primary mt-1">#1237</h3>
+</div>
+<div class="flex flex-col items-end">
+
+<span class="font-label-md text-label-md text-on-surface-variant mt-1">L. Wong</span>
+</div>
+</div>
+<div class="p-4 flex-1 space-y-3">
+<div class="space-y-2">
+<div class="flex justify-between font-body-md text-body-md text-on-surface">
+<span class="">4x Sando Veggie</span>
+<span class="text-on-surface-variant">$40.00</span>
+</div>
+<div class="flex justify-between font-body-md text-body-md text-on-surface">
+<span class="">4x Té Oolong Frío</span>
+<span class="text-on-surface-variant">$16.00</span>
+</div>
+</div>
+<div class="pt-3 border-t border-dashed border-outline-variant/50 flex justify-between items-center">
+<span class="font-label-lg text-label-lg text-on-surface-variant">Total</span>
+<span class="font-headline-md text-headline-md text-primary">$56.00</span>
+</div>
+</div>
+<div class="p-4 bg-surface-container-high/30 flex gap-3">
+<button class="flex-1 bg-primary text-on-primary font-label-lg text-label-lg h-12 flex items-center justify-center rounded-lg hover:bg-primary-container transition-colors active:scale-95" style="transform: scale(1);">
+                        CONCLUIR COMPRA
+                    </button>
+<button class="p-2 border border-outline text-on-surface-variant rounded-lg hover:bg-surface-container-highest transition-colors active:scale-95">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-2 border border-error/30 text-error rounded-lg hover:bg-error-container transition-colors active:scale-95">
+<span class="material-symbols-outlined">delete_outline</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<footer class="fixed bottom-0 left-64 right-0 bg-surface-container border-t border-outline-variant/30 h-20 px-margin-desktop flex items-center justify-between z-50">
+<div class="flex items-center gap-4">
+
+<div class="flex gap-2">
+
+
+</div>
+</div>
+<div class="flex items-center gap-4">
+
+
+
+
+</div>
+<div class="text-right">
+
+
+</div>
+</footer>
+<script>
+        // Micro-interactions for buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.style.transform = 'scale(0.95)';
+            });
+            button.addEventListener('mouseup', () => {
+                button.style.transform = 'scale(1)';
+            });
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+</body></html>

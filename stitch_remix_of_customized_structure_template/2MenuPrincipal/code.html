@@ -1,0 +1,310 @@
+<!DOCTYPE html><html lang="es" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#ffdcc6",
+                    "error": "#ba1a1a",
+                    "outline": "#767869",
+                    "surface-container": "#efefd7",
+                    "surface-variant": "#e4e4cc",
+                    "inverse-surface": "#303221",
+                    "on-error": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed-dim": "#f5bf22",
+                    "surface-dim": "#dbdcc3",
+                    "surface-tint": "#54651e",
+                    "inverse-primary": "#bbcf7c",
+                    "primary": "#52621c",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed": "#251a00",
+                    "secondary": "#775a00",
+                    "secondary-container": "#fec72c",
+                    "tertiary-container": "#926d54",
+                    "surface-bright": "#fbfbe2",
+                    "on-primary-fixed-variant": "#3d4c05",
+                    "primary-fixed-dim": "#bbcf7c",
+                    "primary-container": "#6a7c32",
+                    "on-surface": "#1b1d0e",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#1b1d0e",
+                    "tertiary-fixed-dim": "#eabda0",
+                    "outline-variant": "#c6c8b6",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#eaead1",
+                    "surface": "#fbfbe2",
+                    "background": "#fbfbe2",
+                    "on-primary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed": "#161e00",
+                    "on-tertiary-container": "#fffbff",
+                    "on-secondary-container": "#6f5400",
+                    "inverse-on-surface": "#f2f2d9",
+                    "on-surface-variant": "#46483b",
+                    "on-primary-container": "#fbffe4",
+                    "tertiary": "#76553d",
+                    "surface-container-low": "#f5f5dc",
+                    "on-secondary-fixed-variant": "#5a4300",
+                    "on-tertiary-fixed": "#2d1604",
+                    "on-tertiary-fixed-variant": "#5f402a",
+                    "surface-container-highest": "#e4e4cc",
+                    "secondary-fixed": "#ffdf98",
+                    "primary-fixed": "#d7ec95"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "container-padding": "20px",
+                    "base": "8px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "24px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Work Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "label-md": ["Work Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Work Sans"],
+                    "body-lg": ["Work Sans"],
+                    "headline-md-mobile": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        body {
+            background-color: #fbfbe2; /* surface color */
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c6c8b6;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface selection:bg-secondary-fixed selection:text-on-secondary-fixed overflow-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex justify-between items-center px-margin-desktop w-full h-16 bg-surface dark:bg-surface-dim border-b border-outline-variant/20 dark:border-outline/20 z-50 fixed top-0">
+<div class="flex items-center">
+<img alt="Sandoichi Logo" class="h-10 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAbbexgpAGrZxnIJ61PeuyETweQpTy_YMMLV7s46d_j1466v29jJmQwy3qlrvT6KpOQGdPn51dpry8Rt5UFFkeXKy_0pf5RWS4zpOQfEwJeSeogc-X4XyW4gaPpHK2Dt14nQv6pWN1oKZunp5Od8gSx3nXjEnsLFLVmKqJWf_biRQom2auIuCjs9uq48V3TlNCJBxbLjkfHlrbiz44OfO7JKJv6FnW1u_qV9XmJLdBJUVmRxYzePmILdvIZ_l2QXu4QPowmZ61mg"><span class="font-headline-md text-headline-md text-primary font-bold uppercase ml-2">SAndoichi</span>
+
+</div><div class="flex-1 flex items-center justify-center gap-8">
+  <nav class="hidden md:flex items-center gap-6">
+    <a class="flex items-center gap-2 text-primary font-bold border-b-2 border-primary pb-1 font-label-lg text-label-lg hover:bg-surface-container-high transition-colors duration-200" href="#"><span class="material-symbols-outlined ml-2">point_of_sale</span>Ventas</a>
+    <a class="flex items-center gap-2 text-on-surface-variant font-medium font-label-lg text-label-lg hover:bg-surface-container-high transition-colors duration-200" href="#"><span class="material-symbols-outlined ml-2">inventory_2</span>Inventario</a>
+    <a class="flex items-center gap-2 text-on-surface-variant font-medium font-label-lg text-label-lg hover:bg-surface-container-high transition-colors duration-200" href="#"><span class="material-symbols-outlined ml-2">bar_chart</span>Reportes</a>
+  </nav>
+  
+</div>
+<div class="flex items-center gap-4">
+
+<div class="flex items-center gap-2 min-w-[200px] justify-end">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 rounded-lg active:scale-95 transition-transform">
+</button>
+<div class="relative hidden lg:block max-w-xs">
+    <span class="material-symbols-outlined absolute top-1/2 -translate-y-1/2 text-on-surface-variant left-4">search</span>
+    <input class="pl-10 pr-4 py-2 bg-surface-container border border-outline-variant rounded-lg text-label-lg focus:ring-2 focus:ring-primary outline-none w-full" placeholder="Buscar por ID del producto" type="text">
+  </div><button class="p-2 text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 rounded-lg active:scale-95 transition-transform">
+<span class="material-symbols-outlined">refresh</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 rounded-lg active:scale-95 transition-transform">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Side Navigation Bar -->
+<aside class="flex flex-col h-full border-r border-outline-variant/20 h-full w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-container-lowest pt-16 z-40">
+<div class="p-6 flex flex-col items-center border-b border-outline-variant/10">
+<div class="w-16 h-16 rounded-full bg-primary-fixed-dim flex items-center justify-center mb-3 border-2 border-primary/20">
+<span class="material-symbols-outlined text-primary scale-125" style="font-variation-settings: &quot;FILL&quot; 1;">person</span>
+</div>
+<h3 class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary">Sandoichi POS</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Sucursal Central</p>
+</div>
+<nav class="flex-1 py-4 overflow-y-auto custom-scrollbar px-3 space-y-1">
+<a class="flex items-center gap-4 px-4 py-3 bg-secondary-container text-on-secondary-container font-bold rounded-none active:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+<span class="font-label-md text-label-md">Nueva Orden</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 active:bg-surface-variant transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">pending_actions</span>
+<span class="">Pendientes</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 active:bg-surface-variant transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">check_circle</span>
+<span class="">Completados</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 active:bg-surface-variant transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="">Caja</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 active:bg-surface-variant transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="">Ayuda</span>
+</a>
+</nav>
+<div class="mt-auto mb-2 px-3 border-t border-outline-variant/10 pt-2"><button class="flex w-full items-center gap-4 px-4 py-3 text-error hover:bg-error-container/20 active:bg-error-container/40 transition-all font-label-md text-label-md rounded-lg mb-2">
+<span class="material-symbols-outlined">logout</span>
+<span class="">Cerrar Sesión</span>
+</button>
+<div class="p-4 bg-surface-container-high/50 border-t border-outline-variant/10">
+<div class="flex items-center justify-between text-label-md text-on-surface-variant">
+<span class="">Estado del Sistema</span>
+<span class="w-2 h-2 rounded-full bg-green-600 animate-pulse"></span>
+</div>
+<p class="text-[10px] text-on-surface-variant/60 uppercase tracking-widest text-center mt-2">v2.4.0 Online</p>
+</div></div>
+</aside>
+<!-- Main Content Area (Empty State) -->
+<main class="ml-64 mt-16 p-margin-desktop h-[calc(100vh-64px)] overflow-y-auto custom-scrollbar">
+<div class="max-w-6xl mx-auto space-y-8">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary">¡Bienvenido de nuevo!</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Lunes, 24 de Mayo • 08:30 AM</p>
+</div>
+<div class="flex gap-4">
+<div class="bg-surface-container p-4 border border-outline-variant/30 rounded-lg flex items-center gap-4 min-w-[200px]">
+<div class="w-10 h-10 rounded-lg bg-primary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container">trending_up</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Ventas de hoy</p>
+<p class="font-headline-md text-headline-md text-on-surface">$0.00</p>
+</div>
+</div>
+<div class="bg-surface-container p-4 border border-outline-variant/30 rounded-lg flex items-center gap-4 min-w-[200px]">
+<div class="w-10 h-10 rounded-lg bg-secondary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">pending</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Pedidos pendientes</p>
+<p class="font-headline-md text-headline-md text-on-surface">0</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State Graphic Canvas -->
+<div class="relative rounded-xl overflow-hidden min-h-[500px] flex flex-col items-center p-12 group">
+<!-- Subtle background decorative elements -->
+<!-- Mascot Container -->
+<div class="w-full max-w-4xl bg-surface-container-low rounded-xl border border-outline-variant/20 p-6 space-y-6">
+<!-- Search Bar -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface border-2 border-outline-variant rounded-xl font-body-lg focus:ring-2 focus:ring-primary outline-none transition-all" placeholder="Buscar productos..." type="text">
+</div>
+<!-- Product List -->
+<div class="space-y-2">
+<div class="flex items-center justify-between p-4 bg-surface rounded-lg border border-outline-variant/10 hover:bg-surface-variant/30 transition-colors cursor-pointer">
+<span class="font-headline-md text-on-surface">Naranjoso Michi</span>
+<input checked="" class="w-6 h-6 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+</div>
+<div class="flex items-center justify-between p-4 bg-surface rounded-lg border border-outline-variant/10 hover:bg-surface-variant/30 transition-colors cursor-pointer">
+<span class="font-headline-md text-on-surface">Michi Vulcano</span>
+<input checked="" class="w-6 h-6 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+</div>
+<div class="flex items-center justify-between p-4 bg-surface rounded-lg border border-outline-variant/10 hover:bg-surface-variant/30 transition-colors cursor-pointer">
+<span class="font-headline-md text-on-surface">Epic Chanwis</span>
+<input checked="" class="w-6 h-6 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+</div>
+<div class="flex items-center justify-between p-4 bg-surface rounded-lg border border-outline-variant/10 hover:bg-surface-variant/30 transition-colors cursor-pointer">
+<span class="font-headline-md text-on-surface">Special Michi</span>
+<input checked="" class="w-6 h-6 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+</div>
+<div class="flex items-center justify-between p-4 bg-surface rounded-lg border border-outline-variant/10 hover:bg-surface-variant/30 transition-colors cursor-pointer">
+<span class="font-headline-md text-on-surface">Supreme Michi</span>
+<input checked="" class="w-6 h-6 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox">
+</div>
+</div>
+<!-- Action Button -->
+<div class="flex justify-end pt-4">
+<button class="bg-primary text-surface px-8 py-3 rounded-full font-headline-md hover:bg-primary/90 transition-all active:scale-95 shadow-lg">GENERAR PEDIDO</button>
+</div>
+</div>
+<!-- Bottom stats bar (Empty) -->
+<div class="mt-16 w-full max-w-4xl grid grid-cols-1 gap-6 pt-12 border-t border-outline-variant/10"><div class="text-center col-span-full">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-1">Cajero de Turno</p>
+<p class="font-body-md text-body-md font-semibold text-on-surface">Admin Principal</p>
+</div></div>
+</div>
+<!-- Secondary Actions Bento -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+
+
+</div>
+</div>
+</main>
+<script>
+        // Micro-interaction for hover effects on empty state
+        const emptyState = document.querySelector('.group');
+        emptyState.addEventListener('mousemove', (e) => {
+            const rect = emptyState.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const bubbles = emptyState.querySelectorAll('.blur-3xl');
+            bubbles[0].style.transform = `translate(${(x - rect.width/2) / 20}px, ${(y - rect.height/2) / 20}px)`;
+            bubbles[1].style.transform = `translate(${(x - rect.width/2) / -20}px, ${(y - rect.height/2) / -20}px)`;
+        });
+
+        // Current time update
+        function updateTime() {
+            const timeEl = document.querySelector('.text-on-surface-variant');
+            const now = new Date();
+            const options = { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' };
+            // Simple simulation as the date format string is hardcoded above
+        }
+        setInterval(updateTime, 60000);
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html><html class="light" lang="es" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Sandoichi POS - Agregar Nuevo Producto</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#303221",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#c6c8b6",
+                    "on-tertiary-fixed": "#2d1604",
+                    "on-background": "#1b1d0e",
+                    "surface-container": "#efefd7",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f5f5dc",
+                    "tertiary": "#76553d",
+                    "primary-container": "#6a7c32",
+                    "on-error": "#ffffff",
+                    "surface-tint": "#54651e",
+                    "primary-fixed": "#d7ec95",
+                    "secondary-container": "#fec72c",
+                    "on-tertiary-container": "#fffbff",
+                    "on-secondary-container": "#6f5400",
+                    "on-tertiary-fixed-variant": "#5f402a",
+                    "surface-variant": "#e4e4cc",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#fbffe4",
+                    "tertiary-fixed-dim": "#eabda0",
+                    "surface": "#fbfbe2",
+                    "surface-container-high": "#eaead1",
+                    "inverse-primary": "#bbcf7c",
+                    "surface-bright": "#fbfbe2",
+                    "primary": "#52621c",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed": "#161e00",
+                    "inverse-on-surface": "#f2f2d9",
+                    "secondary-fixed": "#ffdf98",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed-dim": "#bbcf7c",
+                    "on-surface-variant": "#46483b",
+                    "surface-container-highest": "#e4e4cc",
+                    "tertiary-fixed": "#ffdcc6",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#1b1d0e",
+                    "outline": "#767869",
+                    "on-primary-fixed-variant": "#3d4c05",
+                    "on-secondary-fixed-variant": "#5a4300",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#dbdcc3",
+                    "on-secondary-fixed": "#251a00",
+                    "tertiary-container": "#926d54",
+                    "background": "#fbfbe2",
+                    "secondary-fixed-dim": "#f5bf22",
+                    "secondary": "#775a00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "margin-desktop": "24px",
+                    "gutter": "16px",
+                    "container-padding": "20px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Work Sans"],
+                    "body-md": ["Work Sans"],
+                    "body-lg": ["Work Sans"],
+                    "headline-md-mobile": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "label-md": ["Work Sans"],
+                    "display-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #52621c !important;
+            box-shadow: 0 0 0 1px #52621c;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-40 flex justify-between items-center px-margin-desktop h-16 bg-surface border-b border-outline-variant/20">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2"><img alt="Sandoichi Logo" class="h-8 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDugmewv5FhSwcYOgv4bCHPIqNYhrvXqwr_qRVSsj-L6AwE2kmEgDO9EPZUhxUJjzsV-lncL1WSShY9hYJ0dF-UHEKB7tGjvZJ9BaJRx4leH1r71d_C_V9-4L8VzzhotREp9AOt4H5813JGxiZXtQ54dP1XcPUDoeLXLyi-5hEWajtA3PdKY8Yi3jZsiI3jWFo_PjNe5lAZBv1PEKmz57lwRp65IahBBo0w9cds99XQoELAv5NAuRKgIPERkzrDchxCiiq4hH9XACpT"><span class="text-headline-md font-headline-md text-primary">Sandoichi</span></div>
+</div>
+<div class="hidden md:flex items-center gap-8"><a class="flex items-center gap-2 text-on-surface-variant font-medium hover:bg-surface-container-low transition-colors px-3 py-1" href="#"><span class="material-symbols-outlined">point_of_sale</span>Ventas</a><a class="flex items-center gap-2 text-primary font-bold border-b-2 border-primary pb-1" href="#"><span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">inventory_2</span>Inventario</a><a class="flex items-center gap-2 text-on-surface-variant font-medium hover:bg-surface-container-low transition-colors px-3 py-1" href="#"><span class="material-symbols-outlined">bar_chart</span>Reportes</a></div>
+
+</nav>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container border-r border-outline-variant/20 pt-20 pb-base z-30 hidden md:flex flex-col">
+<div class="px-6 mb-8">
+</div>
+<nav class="flex-grow space-y-1">
+</nav>
+<div class="mt-auto"><a class="flex items-center gap-base px-4 py-3 mx-2 hover:bg-surface-container-high transition-all rounded-lg text-error" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-lg text-label-lg">Cerrar Sesión</span>
+</a></div><div class="mt-4 mb-2 px-6 flex flex-col gap-1">
+</div>
+<div class="mt-4 mb-2 px-6 flex flex-col gap-1">
+<div class="flex items-center gap-2"><span class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Estado del Sistema</span><div class="w-2 h-2 rounded-full bg-[#4CAF50]"></div></div>
+<span class="text-[10px] font-label-md text-on-surface-variant/60 ml-4">V2.4.0 ONLINE</span>
+</div></aside>
+<!-- Main Content Area -->
+<main class="md:ml-64 pt-24 pb-12 px-margin-mobile md:px-margin-desktop">
+<div class="max-w-5xl mx-auto">
+<!-- Header Section -->
+<div class="flex items-center justify-between mb-8">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-background">Agregar Nuevo Producto</h1>
+<p class="text-body-md font-body-md text-on-surface-variant">Complete los detalles para registrar un nuevo artículo en su inventario.</p>
+</div>
+<div class="hidden sm:flex gap-4">
+<button class="px-6 h-14 border border-tertiary text-tertiary font-label-lg text-label-lg hover:bg-surface-container-high transition-colors uppercase tracking-wider">
+                        Cancelar
+                    </button>
+<button class="px-8 h-14 bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container transition-all active:scale-95 uppercase tracking-wider shadow-md">
+                        Guardar Producto
+                    </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Main Form Column -->
+<div class="lg:col-span-8 space-y-gutter">
+<!-- General Information Card -->
+<section class="bg-surface-container-lowest border border-outline-variant/30 p-6 shadow-sm">
+<h3 class="font-headline-md text-headline-md text-primary mb-6">Información General</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="product-name">Nombre del Producto</label>
+<input class="w-full bg-surface border border-outline-variant px-4 py-3 text-body-md font-body-md focus:ring-1 focus:ring-primary transition-all" id="product-name" placeholder="Ej. Sándwich Katsu Premium" type="text">
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="category">Categoría</label>
+<select class="w-full bg-surface border border-outline-variant px-4 py-3 text-body-md font-body-md focus:ring-1 focus:ring-primary transition-all" id="category">
+<option value="">Seleccionar categoría</option>
+<option value="sandwiches">Sándwiches</option>
+<option value="bebidas">Bebidas</option>
+<option value="postres">Postres</option>
+<option value="snacks">Snacks</option>
+</select>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="sku">Código de Producto (SKU)</label>
+<input class="w-full bg-surface border border-outline-variant px-4 py-3 text-body-md font-body-md focus:ring-1 focus:ring-primary transition-all" id="sku" placeholder="SKU-0001" type="text">
+</div>
+</div>
+</section>
+<!-- Pricing & Inventory Card -->
+<section class="bg-surface-container-lowest border border-outline-variant/30 p-6 shadow-sm">
+<h3 class="font-headline-md text-headline-md text-primary mb-6">Precios e Inventario</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="sale-price">Precio de Venta</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-body-md">$</span>
+<input class="w-full bg-surface border border-outline-variant pl-8 pr-4 py-3 text-body-md font-body-md focus:ring-1 focus:ring-primary transition-all" id="sale-price" placeholder="0.00" type="number">
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="cost">Costo de Insumos</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-body-md">$</span>
+<input class="w-full bg-surface border border-outline-variant pl-8 pr-4 py-3 text-body-md font-body-md focus:ring-1 focus:ring-primary transition-all" id="cost" placeholder="0.00" type="number">
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="stock">Stock Inicial</label>
+<input class="w-full bg-surface border border-outline-variant px-4 py-3 text-body-md font-body-md focus:ring-1 focus:ring-primary transition-all" id="stock" placeholder="0" type="number">
+</div>
+</div>
+</section>
+<!-- Description Card -->
+<section class="bg-surface-container-lowest border border-outline-variant/30 p-6 shadow-sm">
+<h3 class="font-headline-md text-headline-md text-primary mb-6">Descripción</h3>
+<textarea class="w-full bg-surface border border-outline-variant px-4 py-3 text-body-md font-body-md focus:ring-1 focus:ring-primary transition-all resize-none" id="description" placeholder="Escriba los ingredientes y detalles del producto..." rows="4"></textarea>
+</section>
+</div>
+<!-- Secondary Actions Column -->
+<div class="lg:col-span-4 space-y-gutter">
+<!-- Image Upload Area -->
+<!-- Status Display -->
+<section class="bg-surface-container-high border border-outline-variant/30 p-6">
+<div class="flex items-center justify-between mb-4">
+<span class="text-label-lg font-label-lg text-on-surface-variant uppercase tracking-widest">Estado</span>
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-label-md font-label-md">BORRADOR</span>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center text-body-md font-body-md">
+<span class="text-on-surface-variant">Margen de Ganancia:</span>
+<span class="text-primary font-bold">-- %</span>
+</div>
+<div class="flex justify-between items-center text-body-md font-body-md">
+<span class="text-on-surface-variant">Impuesto (IVA 16%):</span>
+<span class="text-on-surface font-medium">$0.00</span>
+</div>
+</div>
+</section>
+<!-- Mobile/Sticky Action Bottom Bar -->
+<div class="sm:hidden flex flex-col gap-3 mt-8">
+<button class="w-full h-14 bg-primary text-on-primary font-label-lg text-label-lg uppercase tracking-wider">
+                            Guardar Producto
+                        </button>
+<button class="w-full h-14 border border-tertiary text-tertiary font-label-lg text-label-lg uppercase tracking-wider">
+                            Cancelar
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface border-t border-outline-variant/20 flex justify-around items-center h-16 z-40 px-4">
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+<span class="text-[10px] font-label-md">Orden</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">inventory</span>
+<span class="text-[10px] font-label-md">Inventario</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-[10px] font-label-md">Caja</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">history</span>
+<span class="text-[10px] font-label-md">Historial</span>
+</button>
+</nav>
+<script>
+        // Micro-interaction for calculations
+        const salePriceInput = document.getElementById('sale-price');
+        const costInput = document.getElementById('cost');
+        const marginDisplay = document.querySelector('.text-primary.font-bold');
+
+        function calculateMargin() {
+            const sale = parseFloat(salePriceInput.value) || 0;
+            const cost = parseFloat(costInput.value) || 0;
+            
+            if (sale > 0) {
+                const margin = ((sale - cost) / sale) * 100;
+                marginDisplay.textContent = `${margin.toFixed(1)}%`;
+            } else {
+                marginDisplay.textContent = '-- %';
+            }
+        }
+
+        salePriceInput.addEventListener('input', calculateMargin);
+        costInput.addEventListener('input', calculateMargin);
+
+        // Simple drag and drop effect
+        const dropZone = document.getElementById('drop-zone');
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('bg-primary/5', 'border-primary');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('bg-primary/5', 'border-primary');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('bg-primary/5', 'border-primary');
+            alert('Imagen lista para procesar (simulación)');
+        });
+    </script>
+
+
+</body></html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html><html class="h-full" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Sandoichi - Finalizar Venta</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#dbdcc3",
+                        "primary-fixed-dim": "#bbcf7c",
+                        "surface-container": "#efefd7",
+                        "primary-fixed": "#d7ec95",
+                        "on-secondary-container": "#6f5400",
+                        "tertiary-container": "#926d54",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffdcc6",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#251a00",
+                        "inverse-surface": "#303221",
+                        "secondary": "#775a00",
+                        "on-tertiary-fixed-variant": "#5f402a",
+                        "tertiary": "#76553d",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#2d1604",
+                        "on-primary-fixed-variant": "#3d4c05",
+                        "on-primary-fixed": "#161e00",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#f2f2d9",
+                        "background": "#fbfbe2",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#fbffe4",
+                        "on-surface-variant": "#46483b",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#eabda0",
+                        "secondary-fixed-dim": "#f5bf22",
+                        "on-background": "#1b1d0e",
+                        "secondary-fixed": "#ffdf98",
+                        "inverse-primary": "#bbcf7c",
+                        "primary": "#52621c",
+                        "outline-variant": "#c6c8b6",
+                        "surface-container-low": "#f5f5dc",
+                        "on-tertiary-container": "#fffbff",
+                        "primary-container": "#6a7c32",
+                        "on-surface": "#1b1d0e",
+                        "on-secondary-fixed-variant": "#5a4300",
+                        "surface": "#fbfbe2",
+                        "outline": "#767869",
+                        "surface-container-highest": "#e4e4cc",
+                        "secondary-container": "#fec72c",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#e4e4cc",
+                        "surface-tint": "#54651e",
+                        "surface-container-high": "#eaead1",
+                        "surface-bright": "#fbfbe2",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "24px",
+                        "gutter": "16px",
+                        "container-padding": "20px",
+                        "margin-mobile": "16px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-md-mobile": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Work Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "label-lg": ["Work Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Work Sans"],
+                        "body-lg": ["Work Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "fontWeight": "700" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .order-pattern {
+            background-color: #fbfbe2;
+            background-image: radial-gradient(#76786911 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        /* Lock view to requested resolution while maintaining responsiveness */
+        body {
+            max-width: 1280px;
+            height: 780px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+        @media (min-width: 1281px) {
+            body {
+                box-shadow: 0 0 50px rgba(0,0,0,0.1);
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-background border-b border-outline-variant/20 flex justify-between items-center px-8 h-16 w-full flex-shrink-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<img alt="Sandoichi Logo" class="h-10 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmlnT21oDGNNG6ooyy-WZYCej1d_oLjzl09QsD_riW3utUHN4bqjUqfuocPORpGzftsEcWxZikXy4CDi071L48IUsE2StbUQyZ539_XzYpxX3qieFts_NH4hF2d-39MRpc95gily92TI8_LAmFhtDaeVTS5j57c49zhmAj7hMM02u2rXipOy1hOBbtqGEGtGShlPrEPodWtbzz9h7HBkv0YnFe0Klt_LvZ2MZcaY8xh_Nc_ZFX8-6QX6z79TrJdygGaHzfcLnj4g">
+<h1 class="font-display-lg text-xl font-bold text-primary">Sandoichi</h1>
+</div>
+<nav class="flex items-center gap-1">
+<a class="px-4 py-2 text-sm font-bold flex items-center gap-2 border-b-2 border-primary pb-1 text-primary" href="#">
+<span class="material-symbols-outlined text-[20px]">point_of_sale</span>Ventas
+                </a>
+<a class="px-4 py-2 text-sm font-medium text-on-surface-variant hover:bg-surface-container transition-colors rounded-lg flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>Inventario
+                </a>
+<a class="px-4 py-2 text-sm font-medium text-on-surface-variant hover:bg-surface-container transition-colors rounded-lg flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[20px]">bar_chart</span>Reportes
+                </a>
+</nav>
+</div>
+<div class="w-64 px-2">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20" placeholder="Buscar..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors" title="Historial de ventas"><span class="material-symbols-outlined text-on-surface-variant">history</span></button>
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">settings</span>
+</button>
+</div>
+</header>
+<main class="flex-1 flex overflow-hidden order-pattern">
+<!-- Content Canvas -->
+<div class="flex-1 p-8 flex flex-col items-center justify-between overflow-y-auto">
+<!-- Main Success Message -->
+<div class="text-center mt-4">
+<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary text-on-primary mb-4 shadow-md">
+<span class="material-symbols-outlined !text-4xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h2 class="font-display-lg text-3xl text-primary uppercase tracking-wider mb-1">Venta Exitosa</h2>
+<p class="font-body-md text-on-surface-variant">La transacción se ha completado correctamente.</p>
+</div>
+<!-- TICKET BOX -->
+<div class="w-full max-w-2xl bg-white border border-outline-variant/30 p-8 rounded-xl shadow-sm flex flex-col items-center">
+<h3 class="font-label-lg text-lg text-on-surface-variant uppercase tracking-[0.2em] mb-8 pb-1 border-b-2 border-secondary-container">TICKET</h3>
+<!-- Action Buttons Cluster - Optimized horizontal space -->
+<div class="grid grid-cols-2 gap-6 w-full">
+<!-- IMPRIMIR TICKET -->
+<button class="group flex flex-col items-center justify-center gap-3 py-10 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-200 rounded-lg active:scale-95">
+<span class="material-symbols-outlined !text-5xl group-hover:scale-110 transition-transform">print</span>
+<span class="font-label-lg uppercase tracking-widest text-sm">Imprimir Ticket</span>
+</button>
+<!-- NO IMPRIMIR -->
+<button class="group flex flex-col items-center justify-center gap-3 py-10 border-2 border-outline text-outline hover:bg-outline hover:text-white transition-all duration-200 rounded-lg active:scale-95">
+<span class="material-symbols-outlined !text-5xl group-hover:scale-110 transition-transform">block</span>
+<span class="font-label-lg uppercase tracking-widest text-sm">No Imprimir</span>
+</button>
+</div>
+</div>
+<!-- Global Action - Prominent but integrated -->
+<div class="w-full max-w-2xl mb-4">
+<button class="w-full h-14 bg-secondary-container text-on-secondary-container font-headline-md text-xl flex items-center justify-center gap-3 rounded-lg hover:bg-secondary-fixed shadow-md hover:shadow-lg transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+                    NUEVA VENTA
+                </button>
+</div>
+</div>
+<!-- Right Side Panel: Resumen de Orden -->
+<aside class="w-80 bg-surface-container-low border-l border-outline-variant/20 flex flex-shrink-0 flex-col shadow-[-4px_0px_20px_rgba(0,0,0,0.02)]">
+<div class="p-6 border-b border-outline-variant/30 bg-surface-container">
+<h4 class="font-label-lg text-sm text-on-surface-variant uppercase tracking-widest">Resumen Final</h4>
+</div>
+<div class="flex-1 overflow-y-auto">
+<div class="p-6 space-y-4">
+<div class="flex justify-between text-on-surface-variant">
+<span class="font-label-md uppercase">Subtotal</span>
+<span class="font-body-md font-medium text-on-surface">$55.00</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span class="font-label-md uppercase">IVA (16%)</span>
+<span class="font-body-md font-medium text-on-surface">$8.80</span>
+</div>
+</div>
+</div>
+<div class="p-6 bg-white border-t border-outline-variant/30 space-y-4">
+<div class="flex justify-between items-end text-primary">
+<span class="font-label-lg uppercase tracking-tighter">Total Pagado</span>
+<span class="font-display-lg text-3xl font-bold">$63.80</span>
+</div>
+<div class="p-4 bg-primary/5 rounded-lg border border-primary/10 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="font-label-md text-primary font-bold uppercase text-xs">Pagado con Tarjeta</span>
+</div>
+</div>
+</aside>
+</main>
+<!-- Interactive micro-feedback script -->
+<script>
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const isNewSale = btn.innerText.includes('NUEVA VENTA');
+                if (isNewSale) {
+                    const originalHTML = btn.innerHTML;
+                    btn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> PROCESANDO...';
+                    btn.disabled = true;
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 800);
+                } else {
+                    const icon = btn.querySelector('.material-symbols-outlined');
+                    if (icon) {
+                        icon.style.transform = 'scale(1.2)';
+                        setTimeout(() => {
+                            icon.style.transform = 'scale(1)';
+                        }, 200);
+                    }
+                }
+            });
+        });
+    </script>
+</body></html>

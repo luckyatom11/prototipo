@@ -1,0 +1,400 @@
+<!DOCTYPE html><html class="light" lang="es" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Sandoichi POS - Ajustes</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#fbfbe2",
+                        "surface-container": "#efefd7",
+                        "secondary": "#775a00",
+                        "surface-container-high": "#eaead1",
+                        "on-secondary-container": "#6f5400",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#fec72c",
+                        "primary": "#52621c",
+                        "surface-container-low": "#f5f5dc",
+                        "primary-fixed": "#d7ec95",
+                        "surface-variant": "#e4e4cc",
+                        "surface-dim": "#dbdcc3",
+                        "on-primary-container": "#fbffe4",
+                        "tertiary": "#76553d",
+                        "on-surface": "#1b1d0e",
+                        "outline": "#767869",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-background": "#1b1d0e",
+                        "tertiary-fixed-dim": "#eabda0",
+                        "tertiary-container": "#926d54",
+                        "secondary-fixed": "#ffdf98",
+                        "on-tertiary-fixed": "#2d1604",
+                        "primary-container": "#6a7c32",
+                        "on-secondary-fixed": "#251a00",
+                        "tertiary-fixed": "#ffdcc6",
+                        "on-tertiary-fixed-variant": "#5f402a",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#46483b",
+                        "surface-container-highest": "#e4e4cc",
+                        "secondary-fixed-dim": "#f5bf22",
+                        "on-primary-fixed-variant": "#3d4c05",
+                        "surface-tint": "#54651e",
+                        "outline-variant": "#c6c8b6",
+                        "on-secondary-fixed-variant": "#5a4300",
+                        "inverse-primary": "#bbcf7c",
+                        "inverse-on-surface": "#f2f2d9",
+                        "surface": "#fbfbe2",
+                        "background": "#fbfbe2",
+                        "on-tertiary-container": "#fffbff",
+                        "primary-fixed-dim": "#bbcf7c",
+                        "on-primary-fixed": "#161e00",
+                        "inverse-surface": "#303221",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "margin-desktop": "24px",
+                        "gutter": "16px",
+                        "container-padding": "20px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["Work Sans"],
+                        "headline-md-mobile": ["Plus Jakarta Sans"],
+                        "body-md": ["Work Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Work Sans"],
+                        "label-md": ["Work Sans"],
+                        "headline-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "display-lg": ["40px", {"lineHeight": "48px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c6c8b6; border-radius: 10px; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #52621c; }
+        .toggle-checkbox:checked + .toggle-label .toggle-dot { transform: translateX(100%); }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen overflow-hidden">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container border-r border-outline-variant/20 flex flex-col pt-24 pb-base z-30">
+<div class="px-6 mb-8">
+<h1 class="font-headline-md text-headline-md text-primary">Sandoichi POS</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Terminal 01</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-base text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
+<span class="font-label-lg text-label-lg">Nueva Orden</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="pending_actions">pending_actions</span>
+<span class="font-label-lg text-label-lg">Pendientes</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-lg text-label-lg">Caja</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-lg text-label-lg">Historial</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="badge">badge</span>
+<span class="font-label-lg text-label-lg">Personal</span>
+</a>
+<!-- Ajustes as Active Tab -->
+<a class="flex items-center gap-base bg-primary text-on-primary rounded-lg px-4 py-3 mx-2" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-lg text-label-lg">Ajustes</span>
+</a>
+</nav>
+<div class="mt-auto px-2 space-y-4">
+<div class="px-4 py-2 border-t border-outline-variant/20 pt-4">
+<p class="font-label-md text-label-md text-on-surface-variant opacity-70">Estado del Sistema</p>
+</div>
+<button class="flex w-full items-center gap-base text-error px-4 py-3 hover:bg-error-container/20 transition-all rounded-lg">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-lg text-label-lg">Cerrar Sesión</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-margin-desktop h-16 w-full z-40 bg-surface border-b border-outline-variant/20 sticky top-0">
+<div class="flex items-center gap-4">
+<h2 class="font-headline-md text-headline-md text-primary">Ajustes</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+
+</div>
+<div class="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold">A</div>
+</div>
+</header>
+<!-- Settings Canvas -->
+<div class="flex-1 p-margin-desktop bg-surface-container-low custom-scrollbar overflow-y-auto">
+<div class="max-w-5xl mx-auto space-y-8 pb-12">
+<!-- Section 1: User Profile -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+<div class="md:col-span-4">
+<h3 class="font-headline-md text-headline-md text-on-surface">Perfil de Usuario</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Gestiona tu información personal y rol dentro del sistema POS.</p>
+</div>
+<div class="md:col-span-8 bg-surface-container-lowest p-8 border border-outline-variant/20 shadow-sm">
+<div class="flex items-center gap-6 mb-8">
+<div class="h-24 w-24 bg-surface-container rounded-lg border border-outline-variant/20 flex items-center justify-center relative group">
+<img alt="Usuario Administrador" class="h-full w-full object-cover rounded-lg" data-alt="A professional headshot of a friendly man in a clean, modern workspace with warm natural lighting. He is wearing a professional olive-colored apron, hinting at an artisanal food service role. The background is softly blurred to emphasize the person, maintaining a bright and optimistic light-mode aesthetic with warm earthy tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAibyWO32N8WVrWOGChyMpM9yOQ6JROeBJ5GN8DuNVG-t2qOXi0rm-FvMm83VB51sU3puIkozm37oteo1IBaYa_CgU6-gvtwWeXONRbHPf59Aj7-eHKyO0h9OL2fiQsHpDFXdiWZN8U31X3oR5mYObEjPIyTvbBBOOMSRI_JlJZnEbVMkAekvxSsaXnobzKIghMVzjIxmNejFOtdnvHy0TMilIaCWJujdnKrhjbLQDGt6lYx_y3dK-3Z0AZadX_Zq4kcE7nzrcA8g">
+<button class="absolute -bottom-2 -right-2 bg-secondary-container p-2 rounded-lg text-on-secondary-container shadow-md">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface">Admin Sandoichi</h4>
+<span class="inline-block px-3 py-1 bg-primary text-on-primary text-label-md font-label-md mt-1">Super Administrador</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Nombre Completo</label>
+<input class="bg-surface border border-outline-variant/50 focus:border-primary focus:ring-1 focus:ring-primary p-3 rounded-none font-body-md" type="text" value="Admin Sandoichi">
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Correo Electrónico</label>
+<input class="bg-surface border border-outline-variant/50 focus:border-primary focus:ring-1 focus:ring-primary p-3 rounded-none font-body-md" type="email" value="admin@sandoichi.com">
+</div>
+</div>
+</div>
+</section>
+<hr class="border-outline-variant/20">
+<!-- Section 2: Terminal Configuration -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+<div class="md:col-span-4">
+<h3 class="font-headline-md text-headline-md text-on-surface">Configuración de Terminal</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Ajustes específicos de la tienda y el identificador de la caja actual.</p>
+</div>
+<div class="md:col-span-8 bg-surface-container-lowest p-8 border border-outline-variant/20 shadow-sm space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Nombre de la Sucursal</label>
+<input class="bg-surface border border-outline-variant/50 p-3 rounded-none font-body-md" type="text" value="Sandoichi - Sede Central">
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Terminal ID</label>
+<input class="bg-surface-container border border-outline-variant/50 p-3 rounded-none font-body-md text-on-surface-variant cursor-not-allowed" readonly="" type="text" value="TERM-001">
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Idioma del Sistema</label>
+<select class="bg-surface border border-outline-variant/50 p-3 rounded-none font-body-md">
+<option>Español (Latinoamérica)</option>
+<option>English (US)</option>
+<option>日本語 (Japonés)</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Zona Horaria</label>
+<select class="bg-surface border border-outline-variant/50 p-3 rounded-none font-body-md">
+<option>(GMT-06:00) Central America</option>
+</select>
+</div>
+</div>
+</div>
+</section>
+<hr class="border-outline-variant/20">
+<!-- Section 3: Payment Methods -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+<div class="md:col-span-4">
+<h3 class="font-headline-md text-headline-md text-on-surface">Métodos de Pago</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Habilita o deshabilita los tipos de pago aceptados en esta terminal.</p>
+</div>
+<div class="md:col-span-8 bg-surface-container-lowest border border-outline-variant/20 shadow-sm overflow-hidden">
+<div class="divide-y divide-outline-variant/20">
+<!-- Payment Row 1 -->
+<div class="flex items-center justify-between p-6">
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="payments">payments</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Efectivo</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Acepta billetes y monedas locales.</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox">
+<div class="toggle-label w-11 h-6 rounded-full transition-colors relative bg-primary">
+<div class="toggle-dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform" style="transform: translateX(100%);"></div>
+</div>
+</label>
+</div>
+<!-- Payment Row 2 -->
+<div class="flex items-center justify-between p-6">
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="credit_card">credit_card</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Tarjeta de Débito/Crédito</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Integración con terminal bancaria.</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox">
+<div class="toggle-label w-11 h-6 rounded-full transition-colors relative bg-primary">
+<div class="toggle-dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform" style="transform: translateX(100%);"></div>
+</div>
+</label>
+</div>
+<!-- Payment Row 3 -->
+<div class="flex items-center justify-between p-6">
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="qr_code_2">qr_code_2</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Billeteras Digitales (QR)</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Pagos vía transferencia y códigos QR.</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only toggle-checkbox" type="checkbox">
+<div class="toggle-label w-11 h-6 bg-outline-variant/50 rounded-full transition-colors relative">
+<div class="toggle-dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform"></div>
+</div>
+</label>
+</div>
+</div>
+</div>
+</section>
+<hr class="border-outline-variant/20">
+<!-- Section 4: Security & Users -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start pb-12">
+<div class="md:col-span-4">
+<h3 class="font-headline-md text-headline-md text-on-surface">Seguridad y Personal</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Controla quién tiene acceso al sistema y sus niveles de permiso.</p>
+</div>
+<div class="md:col-span-8 bg-surface-container-lowest border border-outline-variant/20 shadow-sm overflow-hidden">
+<div class="p-6 border-b border-outline-variant/20 flex justify-between items-center">
+<h4 class="font-label-lg text-label-lg text-on-surface">Lista de Personal Activo</h4>
+<button class="bg-secondary text-on-secondary px-4 py-2 text-label-md font-label-md hover:opacity-90 transition-opacity">
+                                AGREGAR MIEMBRO
+                            </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-on-surface-variant font-label-md text-label-md border-b border-outline-variant/20">
+<tr>
+<th class="px-6 py-3 font-semibold">Usuario</th>
+<th class="px-6 py-3 font-semibold">Rol</th>
+<th class="px-6 py-3 font-semibold">Estado</th>
+<th class="px-6 py-3 font-semibold text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10 font-body-md text-body-md">
+<tr>
+<td class="px-6 py-4">Juan Pérez</td>
+<td class="px-6 py-4"><span class="px-2 py-1 bg-surface-container text-on-surface-variant text-xs font-bold">Cajero</span></td>
+<td class="px-6 py-4 text-primary font-medium">Activo</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:underline">Editar</button>
+</td>
+</tr>
+<tr>
+<td class="px-6 py-4">María García</td>
+<td class="px-6 py-4"><font color="#46483b"><span style="caret-color: rgb(70, 72, 59); font-size: 12px; background-color: rgb(239, 239, 215);" class=""><b>&nbsp; &nbsp;Chef&nbsp;</b></span></font></td>
+<td class="px-6 py-4 text-primary font-medium">Activo</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:underline">Editar</button>
+</td>
+</tr>
+<tr>
+
+<td class="px-6 py-4"></td>
+
+<td class="px-6 py-4 text-right">
+
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Save Action Floating Zone -->
+<div class="flex justify-end gap-4 mt-8">
+<button class="px-8 py-3 bg-transparent border border-tertiary text-tertiary font-label-lg text-label-lg hover:bg-tertiary/5 transition-colors">
+                        DESCARTAR CAMBIOS
+                    </button>
+<button class="px-10 py-3 bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container transition-colors shadow-lg">
+                        GUARDAR CONFIGURACIÓN
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simple micro-interaction for toggles
+        document.querySelectorAll('.sr-only').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const dot = this.nextElementSibling.querySelector('.toggle-dot');
+                if(this.checked) {
+                    dot.style.transform = 'translateX(100%)';
+                    this.nextElementSibling.classList.add('bg-primary');
+                    this.nextElementSibling.classList.remove('bg-outline-variant/50');
+                } else {
+                    dot.style.transform = 'translateX(0)';
+                    this.nextElementSibling.classList.remove('bg-primary');
+                    this.nextElementSibling.classList.add('bg-outline-variant/50');
+                }
+            });
+        });
+
+        // Initialize active state correctly if not preset
+        document.querySelectorAll('.toggle-checkbox').forEach(input => {
+            if(input.checked) {
+                const label = input.nextElementSibling;
+                label.classList.add('bg-primary');
+                label.classList.remove('bg-outline-variant/50');
+                label.querySelector('.toggle-dot').style.transform = 'translateX(100%)';
+            }
+        });
+    </script>
+
+
+
+
+</body></html>
